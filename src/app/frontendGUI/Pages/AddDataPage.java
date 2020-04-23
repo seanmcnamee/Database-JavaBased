@@ -43,6 +43,9 @@ public class AddDataPage extends GUIPage {
         if (obj.equals(this.components[this.components.length-1].component)) {
             System.out.println("Back to menu page");
             prepareAndSwitchToPage(App.MENU, main);
+        } else if (obj.equals(this.components[1].component)) {
+            System.out.println("Back to menu page");
+            prepareAndSwitchToPage(App.ADD_SUPPLIER_PAGE, main);
         }
     }
 }
