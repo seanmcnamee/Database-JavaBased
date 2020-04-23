@@ -35,13 +35,9 @@ public class MenuPage extends GUIPage {
     @Override
     public void actionPerformed(Object obj, GUI main) {
         if (obj.equals(this.components[1].component)) {
-            this.panel.setVisible(false);
-            main.switchToPage(App.ADD_DATA);
-            main.setComponentSizeAndLocation();
+            prepareAndSwitchToPage(App.ADD_DATA, main);
         }   else if(obj.equals(this.components[2].component)) {
-            this.panel.setVisible(false);
-            main.switchToPage(App.VIEW_DATA);
-            main.setComponentSizeAndLocation();
+            prepareAndSwitchToPage(App.VIEW_DATA, main);
         }
     }
 

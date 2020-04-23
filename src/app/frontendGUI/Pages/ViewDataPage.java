@@ -44,10 +44,7 @@ public class ViewDataPage extends GUIPage {
     public void actionPerformed(Object obj, GUI main) {
         if (obj.equals(this.components[this.components.length-1].component)) {
             System.out.println("Back to menu page");
-            this.panel.setVisible(false);
-            main.switchToPage(App.MENU);
-            main.setComponentSizeAndLocation();
-            
+            prepareAndSwitchToPage(App.MENU, main);
         }
     }
 }

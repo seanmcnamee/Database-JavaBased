@@ -61,6 +61,12 @@ public abstract class GUIPage {
         }
     }
 
+    protected void prepareAndSwitchToPage(int page, GUI main) {
+        this.panel.setVisible(false);
+        main.switchToPage(page);
+        main.setComponentSizeAndLocation();
+    }
+
     private void addComponentsToPanel() {
         for (VariableComponent vB: this.components) {
             panel.add(vB.component);
