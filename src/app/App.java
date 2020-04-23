@@ -1,5 +1,6 @@
 package app;
 
+import app.backendSQL.Queries;
 import app.frontendGUI.GUI;
 import app.frontendGUI.Pages.AddDataPage;
 import app.frontendGUI.Pages.MenuPage;
@@ -10,5 +11,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         GUI g = new GUI(new MenuPage(), new AddDataPage(), new ViewDataPage());
         System.out.println("Hello Java");
+        Queries query = new Queries();
+        query.testQuery();
     }
 }
