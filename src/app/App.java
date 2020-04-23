@@ -8,6 +8,7 @@ import app.frontendGUI.Pages.MenuPage;
 import app.frontendGUI.Pages.ViewDataPage;
 
 public class App {
+    //jafari is a beast
     public static int MENU = 0, ADD_DATA = 1, VIEW_DATA = 2, ADD_SUPPLIER_PAGE = 3, VIEW_ITEM_IN_ORDER_PAGE = 4;
     public static void main(String[] args) throws Exception {
         GUI g = new GUI(new MenuPage(), new AddDataPage(), new ViewDataPage(), new AddSupplierPage(), new ViewItemInOrderPage());
