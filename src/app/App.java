@@ -9,8 +9,9 @@ import app.frontendGUI.Pages.ViewDataPage;
 public class App {
     public static int MENU = 0, ADD_DATA = 1, VIEW_DATA = 2;
     public static void main(String[] args) throws Exception {
+        System.out.println("Making GUI...");
         GUI g = new GUI(new MenuPage(), new AddDataPage(), new ViewDataPage());
-        System.out.println("Hello Java");
+        System.out.println("Query Tests...");
         Queries query = new Queries();
         query.testQuery();
     }
