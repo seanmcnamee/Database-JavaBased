@@ -54,6 +54,9 @@ public class ViewDataPage extends GUIPage {
         } else if (obj.equals(this.components[3].component)) {
             System.out.println("Back to menu page");
             prepareAndSwitchToPage(App.VIEW_ITEM_PRICE_IN_CONTRACT_PAGE, main);
+        } else if (obj.equals(this.components[4].component)) {
+            System.out.println("Back to menu page");
+            prepareAndSwitchToPage(App.VIEW_ORDERS_FOR_ITEM_PAGE, main);
         }
     }
 }
