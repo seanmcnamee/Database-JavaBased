@@ -12,17 +12,16 @@ import app.App;
 import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
-public class ViewItemInOrderPage extends GUIPage {
-
-    
-    public ViewItemInOrderPage() {
+public class ViewItemPriceInOrderPage extends GUIPage {
+   
+    public ViewItemPriceInOrderPage() {
         super();
         this.panel.setBackground(Color.RED);
     }
     @Override
     public VariableComponent[] createComponents() {
         final VariableComponent[] components = {
-                new VariableComponent(new JLabel("View items in:", SwingConstants.CENTER), .5, .1, 1, .2),
+                new VariableComponent(new JLabel("View items price in:", SwingConstants.CENTER), .5, .1, 1, .2),
                 new VariableComponent(new JLabel("Order Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
 
@@ -45,3 +44,4 @@ public class ViewItemInOrderPage extends GUIPage {
         }
     }
 }
+
