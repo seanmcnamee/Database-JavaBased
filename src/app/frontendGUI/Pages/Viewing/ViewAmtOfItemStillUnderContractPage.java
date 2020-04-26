@@ -12,16 +12,16 @@ import app.App;
 import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
-public class ViewItemPriceInContractPage extends GUIPage {
+public class ViewAmtOfItemStillUnderContractPage extends GUIPage {
 
-    public ViewItemPriceInContractPage() {
+    public ViewAmtOfItemStillUnderContractPage() {
         super();
         this.panel.setBackground(Color.RED);
     }
     @Override
     public VariableComponent[] createComponents() {
-        VariableComponent[] components = {
-                new VariableComponent(new JLabel("View items price in contract:", SwingConstants.CENTER), .5, .1, 1, .2),
+         VariableComponent[] components = {
+                new VariableComponent(new JLabel("View amount of an item still under Contract:", SwingConstants.CENTER), .5, .1, 1, .2),
                 new VariableComponent(new JLabel("Order Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
 
