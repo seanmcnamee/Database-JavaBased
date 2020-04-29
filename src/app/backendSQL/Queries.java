@@ -85,11 +85,11 @@ public class Queries {
 		insertData("INSERT INTO contract(CNO, DATEOFCONTRACT, INO, CPRICE, CAMOUNT) VALUES(" + itemNum + ", '" + itemNum + "', " + itemNum + ", " + itemNum + ", " + itemNum + ");");
 	}
 
-	public void insertProject() {
+	public void insertProject(int projNum, String projData) {
 		insertData("");
 	}
 
-	public void insertOrder() {
+	public void insertOrder(int orderNum, String dateRequired, String dateCompleted) {
 		insertData("");
 	}
 
