@@ -86,10 +86,11 @@ public abstract class GUIPage {
         return values;
     }
 
-    protected void prepareAndSwitchToPage(int page, GUI main) {
+    protected GUIPage prepareAndSwitchToPage(int page, GUI main) {
         this.panel.setVisible(false);
-        main.switchToPage(page);
+        GUIPage newPage = main.switchToAndReturnPage(page);
         main.setComponentSizeAndLocation();
+        return newPage;
     }
 
     private void addComponentsToPanel() {

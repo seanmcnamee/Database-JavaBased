@@ -78,15 +78,16 @@ public class GUI implements ComponentListener, ActionListener {
         frame.addComponentListener(this);
         //frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-        switchToPage(0);
+        switchToAndReturnPage(0);
     }
 
     // May have a problem with having too much of a panel on something
-    public void switchToPage(int pageNumber) {
+    public GUIPage switchToAndReturnPage(int pageNumber) {
         currentPage = this.pages[pageNumber];
         frame.add(currentPage.getPanel());
         
         currentPage.getPanel().setVisible(true);
+        return currentPage;
     }
 
     private void setupPages() {

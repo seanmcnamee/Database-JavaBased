@@ -34,7 +34,7 @@ public class Queries {
 		} // end try-catch
 	} // end stop connection
 
-	private ResultSet viewData(String statement) {
+	private ResultSet performStatement(String statement) {
 
 		ResultSet resultSet = null;
 		try {
@@ -47,59 +47,55 @@ public class Queries {
 		return resultSet;
 	}
 
+	//INSERTION
+	public ResultSet insertContract(int contractNum, String dateOfContract, int itemNum, int contractPrice, int contractAmount) {
+		return performStatement("INSERT INTO Contracts(CNO, DATEOFCONTRACT, INO, CPRICE, CAMOUNT) VALUES(" + contractNum + ", '" + dateOfContract + "', " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
+	}
+
+	public ResultSet insertProject(int projNum, String projData) {
+		return performStatement("INSERT INTO Projects(PNO, PDATA) VALUES(" + projNum + ",'" + projData + "');");
+	}
+
+	public ResultSet insertOrder(int orderNum, String dateRequired, String dateCompleted) {
+		return performStatement("INSERT INTO Orders(ONO, ODATEREQ , ODATECOMP) VALUES(" + orderNum + ",'" + dateRequired + "','" + dateCompleted + "');");
+	}
+
+	public ResultSet insertItem(int itemNum, String itemDesc) {
+		return performStatement("INSERT INTO Items(INO, IDESC) VALUES(" + itemNum + ",'" + itemDesc + "');");
+	}
+
+	public ResultSet insertSupplier(int supplierNum, String supplierAddress, String supplierName) {
+		return performStatement("INSERT INTO Suppliers(SNO, SADDRESS, SNAME) VALUES(" + supplierNum + ",'" + supplierAddress + "','" + supplierName + "');");
+	}
+
+
+	//VIEWING
 	public ResultSet viewAmtOfItemStillUnderContract() {
-		return viewData("");
+		return performStatement("");
 	}
 
 	public ResultSet viewContractAndSupplierInfo() {
-		return viewData("");
+		return performStatement("");
 	}
 
 	public ResultSet viewItemInOrder() {
-		return viewData("");
+		return performStatement("");
 	}
 
 	public ResultSet viewItemPriceInContract() {
-		return viewData("");
+		return performStatement("");
 	}
 
 	public ResultSet viewItemPriceInOrder() {
-		return viewData("");
+		return performStatement("");
 	}
 
 	public ResultSet viewOrdersForItem() {
-		return viewData("");
+		return performStatement("");
 	}
 
-	private void insertData(String statement) {
-		ResultSet resultSet = null;
-		try {
-			Statement stmt = conn.createStatement();
-			resultSet = stmt.executeQuery(statement);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
-	public void insertContract(int contractNum, String dateOfContract, int itemNum, int contractPrice, int contractAmount) {
-		insertData("INSERT INTO contract(CNO, DATEOFCONTRACT, INO, CPRICE, CAMOUNT) VALUES(" + itemNum + ", '" + itemNum + "', " + itemNum + ", " + itemNum + ", " + itemNum + ");");
-	}
 
-	public void insertProject(int projNum, String projData) {
-		insertData("");
-	}
-
-	public void insertOrder(int orderNum, String dateRequired, String dateCompleted) {
-		insertData("");
-	}
-
-	public void insertItem(int itemNum, String itemDesc) {
-		insertData("INSERT INTO item(INO, IDESC) VALUES(" + itemNum + "," + itemDesc + ");");
-	}
-
-	public void insertSupplier(int supplierNum, String supplierAddress, String supplierName) {
-		insertData("INSERT INTO sup(SNO, SADDRESS, SNAME) VALUES(" + supplierNum + ",'" + supplierAddress + "','" + supplierName + "');");
-	}
 
 	
 
