@@ -85,7 +85,7 @@ public class Queries {
 		insertData("");
 	}
 
-	public void insertItem() {
+	public void insertProject() {
 		insertData("");
 	}
 
@@ -93,12 +93,12 @@ public class Queries {
 		insertData("");
 	}
 
-	public void insertProject() {
-		insertData("");
+	public void insertItem(int itemNum, String itemDesc) {
+		insertData("INSERT INTO item(INO, IDESC) VALUES(" + itemNum + "," + itemDesc + ");");
 	}
 
 	public void insertSupplier(int supplierNum, String supplierAddress, String supplierName) {
-		insertData("");
+		insertData("INSERT INTO sup(SNO, SADDRESS, SNAME) VALUES(" + supplierNum + "," + supplierAddress + "," + supplierName + ");");
 	}
 
 	
