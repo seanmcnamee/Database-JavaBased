@@ -81,23 +81,23 @@ public class Queries {
 		}
 	}
 
-	private void insertContract() {
+	public void insertContract() {
 		insertData("");
 	}
 
-	private void insertItem() {
+	public void insertItem() {
 		insertData("");
 	}
 
-	private void insertOrder() {
+	public void insertOrder() {
 		insertData("");
 	}
 
-	private void insertProject() {
+	public void insertProject() {
 		insertData("");
 	}
 
-	private void insertSupplier() {
+	public void insertSupplier() {
 		insertData("");
 	}
 
