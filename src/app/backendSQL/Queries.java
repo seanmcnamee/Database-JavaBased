@@ -97,7 +97,7 @@ public class Queries {
 		insertData("");
 	}
 
-	public void insertSupplier() {
+	public void insertSupplier(int supplierNum, String supplierAddress, String supplierName) {
 		insertData("");
 	}
 

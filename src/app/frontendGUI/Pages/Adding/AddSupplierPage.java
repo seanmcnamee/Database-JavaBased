@@ -22,18 +22,16 @@ public class AddSupplierPage extends GUIPage {
     @Override
     public VariableComponent[] createComponents() {
         VariableComponent[] components = {
-            new VariableComponent(new JLabel("Add Supplier", SwingConstants.CENTER), .5, .1, 1, .2),
-            new VariableComponent(new JLabel("Supplier Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JLabel("Supplier Address:"), .2, .4, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JLabel("Supplier Name:"), .2, .5, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JLabel("Add Supplier", SwingConstants.CENTER), .5, .1, 1, .2),
+                new VariableComponent(new JLabel("Supplier Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JLabel("Supplier Address:"), .2, .4, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JLabel("Supplier Name:"), .2, .5, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
-
-            new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
-        };
+                new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
         this.setBackgroundAndTextOfComponentsInRange(components, 0, 6, Color.WHITE, Color.WHITE);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
@@ -46,7 +44,13 @@ public class AddSupplierPage extends GUIPage {
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
+
+            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
+            int num = Integer.parseInt(values[0]);
+
+            this.queries.insertSupplier(num, values[1], values[2]);
+
+            //TODO check success?
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }

@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import app.backendSQL.Queries;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -18,6 +20,7 @@ public class GUI implements ComponentListener, ActionListener {
     private JFrame frame;
     private GUIPage currentPage;
     private GUIPage[] pages;
+    private Queries queries;
 
     private final String NAME = "Database";
     private final int WIDTH_AT_SCALE_1 = 790;
@@ -25,8 +28,9 @@ public class GUI implements ComponentListener, ActionListener {
     private double gameScale = 1;
 
     public GUI(GUIPage... pages) {
+        this.queries = new Queries();
         this.pages = pages;
-        setupPageListeners();
+        setupPages();
         setupGUI();
         
 
@@ -85,10 +89,11 @@ public class GUI implements ComponentListener, ActionListener {
         currentPage.getPanel().setVisible(true);
     }
 
-    private void setupPageListeners() {
+    private void setupPages() {
         for (GUIPage page : this.pages) {
             page.setButtonListeners(this);
             page.panel.setVisible(false);
+            page.addQueryManager(this.queries);
         }
     }
 
