@@ -47,6 +47,30 @@ public class Queries {
 		return resultSet;
 	}
 
+	public ResultSet viewAmtOfItemStillUnderContract() {
+		return viewData("");
+	}
+
+	public ResultSet viewContractAndSupplierInfo() {
+		return viewData("");
+	}
+
+	public ResultSet viewItemInOrder() {
+		return viewData("");
+	}
+
+	public ResultSet viewItemPriceInContract() {
+		return viewData("");
+	}
+
+	public ResultSet viewItemPriceInOrder() {
+		return viewData("");
+	}
+
+	public ResultSet viewOrdersForItem() {
+		return viewData("");
+	}
+
 	private void insertData(String statement) {
 		ResultSet resultSet = null;
 		try {
@@ -57,7 +81,27 @@ public class Queries {
 		}
 	}
 
+	private void insertContract() {
+		insertData("");
+	}
 
+	private void insertItem() {
+		insertData("");
+	}
+
+	private void insertOrder() {
+		insertData("");
+	}
+
+	private void insertProject() {
+		insertData("");
+	}
+
+	private void insertSupplier() {
+		insertData("");
+	}
+
+	
 
 			/**
 			Statement stmt = conn.createStatement();
