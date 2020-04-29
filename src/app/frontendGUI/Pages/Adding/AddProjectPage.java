@@ -43,6 +43,11 @@ public class AddProjectPage extends GUIPage {
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
+
+            String[] values = this.getStringsOfTextAreas(components, 2, 4);
+            int num = Integer.parseInt(values[0]);
+
+            this.queries.insertProject(num, values[1]);
             //TODO Add submit code (connect to SQL)
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }

@@ -43,7 +43,11 @@ public class AddContractPage extends GUIPage{
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
+            
+            String[] values = this.getStringsOfTextAreas(components, 2, 4);
+            int num = Integer.parseInt(values[0]);
+
+            this.queries.insertContract(num, values[1]);
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }
