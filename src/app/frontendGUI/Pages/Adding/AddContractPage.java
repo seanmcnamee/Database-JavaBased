@@ -27,11 +27,17 @@ public class AddContractPage extends GUIPage{
             new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JLabel("Date of Contract:"), .2, .4, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JLabel("Item Number:"), .2, .5, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JLabel("Contract Price:"), .2, .6, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JTextArea(), .6, .6, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JLabel("Contract Amount:"), .2, .7, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JTextArea(), .6, .7, 1 / 3.0, 1 / 17.0),
 
-            new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JButton("Submit"), .5, .8, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 4, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsInRange(components, 0, 10, Color.WHITE, Color.WHITE);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
@@ -44,10 +50,13 @@ public class AddContractPage extends GUIPage{
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
             
-            String[] values = this.getStringsOfTextAreas(components, 2, 4);
-            int num = Integer.parseInt(values[0]);
+            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6, 8, 10);
+            int num1 = Integer.parseInt(values[0]);
+            int num2 = Integer.parseInt(values[2]);
+            int num3 = Integer.parseInt(values[3]);
+            int num4 = Integer.parseInt(values[4]);
 
-            this.queries.insertContract(num, values[1]);
+            this.queries.insertContract(num1, values[1], num2, num3, num4);
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }

@@ -41,7 +41,10 @@ public class ViewItemInOrderPage extends GUIPage {
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
             //TODO Add submit code (connect to SQL)
-            prepareAndSwitchToPage(App.ADD_DATA, main);
+            
+            
+            ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
+            view.setViews("Items in Order", "STRING_FROM_SQL_RETURN");
         }
     }
 }
