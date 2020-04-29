@@ -16,7 +16,7 @@ public class ViewOrdersForItemPage extends GUIPage{
 
     public ViewOrdersForItemPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
     @Override
     public VariableComponent[] createComponents() {

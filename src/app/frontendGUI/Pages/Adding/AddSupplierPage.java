@@ -16,7 +16,7 @@ public class AddSupplierPage extends GUIPage {
 
     public AddSupplierPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
 
     @Override

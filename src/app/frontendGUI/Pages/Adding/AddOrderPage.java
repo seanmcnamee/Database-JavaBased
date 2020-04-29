@@ -16,7 +16,7 @@ public class AddOrderPage extends GUIPage {
 
     public AddOrderPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
 
     @Override

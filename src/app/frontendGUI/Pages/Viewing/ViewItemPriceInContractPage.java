@@ -16,7 +16,7 @@ public class ViewItemPriceInContractPage extends GUIPage {
 
     public ViewItemPriceInContractPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
     @Override
     public VariableComponent[] createComponents() {

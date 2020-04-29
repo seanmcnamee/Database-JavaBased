@@ -16,7 +16,7 @@ public class AddProjectPage extends GUIPage {
 
     public AddProjectPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
 
     @Override

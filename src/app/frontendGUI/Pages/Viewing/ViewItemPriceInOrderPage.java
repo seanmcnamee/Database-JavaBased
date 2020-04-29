@@ -16,7 +16,7 @@ public class ViewItemPriceInOrderPage extends GUIPage {
    
     public ViewItemPriceInOrderPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
     @Override
     public VariableComponent[] createComponents() {

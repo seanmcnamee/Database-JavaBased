@@ -16,7 +16,7 @@ public class AddContractPage extends GUIPage{
 
     public AddContractPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
 
     @Override

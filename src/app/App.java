@@ -32,6 +32,6 @@ public class App {
                 
         System.out.println("Query Tests...");
         Queries query = new Queries();
-        query.testQuery();
+        //query.testQuery();
     }
 }

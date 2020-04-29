@@ -16,7 +16,7 @@ public class AddItemPage extends GUIPage {
 
     public AddItemPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
 
     @Override

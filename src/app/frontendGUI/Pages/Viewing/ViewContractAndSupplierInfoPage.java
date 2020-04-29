@@ -16,7 +16,7 @@ public class ViewContractAndSupplierInfoPage extends GUIPage {
 
     public ViewContractAndSupplierInfoPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
     @Override
     public VariableComponent[] createComponents() {

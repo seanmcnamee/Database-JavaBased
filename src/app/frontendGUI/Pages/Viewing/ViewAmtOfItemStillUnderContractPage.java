@@ -16,7 +16,7 @@ public class ViewAmtOfItemStillUnderContractPage extends GUIPage {
 
     public ViewAmtOfItemStillUnderContractPage() {
         super();
-        this.panel.setBackground(Color.RED);
+        this.panel.setBackground(Color.GRAY);
     }
     @Override
     public VariableComponent[] createComponents() {
