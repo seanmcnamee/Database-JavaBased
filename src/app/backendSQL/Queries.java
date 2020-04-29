@@ -81,8 +81,8 @@ public class Queries {
 		}
 	}
 
-	public void insertContract() {
-		insertData("");
+	public void insertContract(int contractNum, String dateOfContract, int itemNum, int contractPrice, int contractAmount) {
+		insertData("INSERT INTO contract(CNO, DATEOFCONTRACT, INO, CPRICE, CAMOUNT) VALUES(" + itemNum + ", '" + itemNum + "', " + itemNum + ", " + itemNum + ", " + itemNum + ");");
 	}
 
 	public void insertProject() {
@@ -98,7 +98,7 @@ public class Queries {
 	}
 
 	public void insertSupplier(int supplierNum, String supplierAddress, String supplierName) {
-		insertData("INSERT INTO sup(SNO, SADDRESS, SNAME) VALUES(" + supplierNum + "," + supplierAddress + "," + supplierName + ");");
+		insertData("INSERT INTO sup(SNO, SADDRESS, SNAME) VALUES(" + supplierNum + ",'" + supplierAddress + "','" + supplierName + "');");
 	}
 
 	
