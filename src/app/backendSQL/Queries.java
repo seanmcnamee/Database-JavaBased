@@ -86,12 +86,13 @@ public class Queries {
 		return performStatement("");
 	}
 
-	public ResultSet viewItemPriceInOrder() {
-		return performStatement("");
+	public ResultSet viewItemPriceInOrder(int itemNum, int orderNum) {
+		return performStatement("SELECT CONTRACT-PRICE FROM Contract-Item WHERE ITEM-NO = '" + itemNum + "' and CONTRACT-NO in " +
+								"SELECT Contract-No FROM Order WHERE ORDER-NO = " + orderNum + ";");
 	}
 
-	public ResultSet viewOrdersForItem() {
-		return performStatement("");
+	public ResultSet viewOrdersForItem(int orderNum) {
+		return performStatement("SELECT * FROM orders WHERE ONO = " + orderNum + ";");
 	}
 
 
