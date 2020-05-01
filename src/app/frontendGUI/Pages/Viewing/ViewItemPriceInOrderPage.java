@@ -21,13 +21,15 @@ public class ViewItemPriceInOrderPage extends GUIPage {
     @Override
     public VariableComponent[] createComponents() {
         VariableComponent[] components = {
-                new VariableComponent(new JLabel("View items price in:", SwingConstants.CENTER), .5, .1, 1, .2),
-                new VariableComponent(new JLabel("Order Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JLabel("View items price in order:", SwingConstants.CENTER), .5, .1, 1, .2),
+                new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JLabel("Order Number:"), .2, .4, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
 
                 new VariableComponent(new JButton("Submit"), .5, .4, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 2, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsInRange(components, 0, 4, Color.WHITE, Color.WHITE);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
@@ -40,6 +42,13 @@ public class ViewItemPriceInOrderPage extends GUIPage {
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
             //TODO Add submit code (connect to SQL)
+
+            String[] values = this.getStringsOfTextAreas(components, 2, 4);
+            int num = Integer.parseInt(values[0]);
+            int num2 = Integer.parseInt(values[1]);
+            
+
+            this.queries.viewItemPriceInOrder(num, num2);
             
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);

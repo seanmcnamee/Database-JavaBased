@@ -28,7 +28,7 @@ public class ViewItemInOrderPage extends GUIPage {
 
                 new VariableComponent(new JButton("Submit"), .5, .4, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 2, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsInRange(components, 0, 4, Color.WHITE, Color.WHITE);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
@@ -41,6 +41,13 @@ public class ViewItemInOrderPage extends GUIPage {
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
             //TODO Add submit code (connect to SQL)
+
+            String[] values = this.getStringsOfTextAreas(components, 2);
+            int num = Integer.parseInt(values[0]);
+            
+            
+
+            this.queries.viewItemInOrder(num);
             
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
