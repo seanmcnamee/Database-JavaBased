@@ -2,7 +2,6 @@ package app.frontendGUI.Pages.Adding;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,8 +15,6 @@ import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
 public class AddContractPage extends GUIPage {
-    private ArrayList<VariableComponent> contractItemInputs;
-    private int contractNum;
 
     public AddContractPage() {
         super();
@@ -37,7 +34,7 @@ public class AddContractPage extends GUIPage {
             new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
             new VariableComponent(new JLabel("Amount of Items to add to this contract:"), .2, .6, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JSpinner(new SpinnerNumberModel(0, Integer.MAX_VALUE, 0, 1)), .6, .6, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .6, 1 / 3.0, 1 / 17.0),
 
             new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
@@ -54,34 +51,21 @@ public class AddContractPage extends GUIPage {
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Submitted");
-            if (contractItemInputs == null) {
                 String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
-                this.contractNum = Integer.parseInt(values[0]);
+                int contractNum = Integer.parseInt(values[0]);
                 int supplierNum = Integer.parseInt(values[1]);
 
-                this.queries.insertContract(contractNum, values[1], supplierNum);
-            }
-            
-            
-            //this.queries.insertContractItem(num1, num3, num4, num5);
-            prepareAndSwitchToPage(App.ADD_DATA, main);
+                //this.queries.insertContract(contractNum, values[1], supplierNum);
+                
+                
+                System.out.println("TEST: " + ((JSpinner) this.components[8].component).getValue().toString());
+                int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
+                System.out.println("Test2:" + num);
+
+                
+                AddContractItemsPage contractItems = (AddContractItemsPage) prepareAndSwitchToPage(App.ADD_CONTRACT_ITEMS, main);
+                contractItems.makeNContractItemInputSets(num, main);
+                contractItems.setContractNum(contractNum);
         }
     }
-
-    public void makeNContractItemInputSets() {
-
-
-        contractItemInputs.add(new VariableComponent(new JLabel("Item Number:"), .2, .6, 1 / 5.0, 1 / 6.0));
-        contractItemInputs.add(new VariableComponent(new JLabel("Contract Price:"), .2, .7, 1 / 5.0, 1 / 6.0));
-        contractItemInputs.add(new VariableComponent(new JLabel("Contract Amount:"), .2, .8, 1 / 5.0, 1 / 6.0));
-
-
-    }
-
-    private void makeSingleItemInputSetAtXLocation(int xPercent) {
-        contractItemInputs.add(new VariableComponent(new JTextArea(), .6, .6, 1 / 12.0, 1 / 17.0));
-        contractItemInputs.add(new VariableComponent(new JTextArea(), .6, .7, 1 / 12.0, 1 / 17.0));
-        contractItemInputs.add(new VariableComponent(new JTextArea(), .6, .8, 1 / 12.0, 1 / 17.0));
-    }
-
 }

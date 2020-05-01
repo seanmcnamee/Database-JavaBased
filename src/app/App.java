@@ -3,6 +3,7 @@ package app;
 import app.backendSQL.Queries;
 import app.frontendGUI.GUI;
 import app.frontendGUI.Pages.AddDataMenuPage;
+import app.frontendGUI.Pages.Adding.AddContractItemsPage;
 import app.frontendGUI.Pages.Adding.AddContractPage;
 import app.frontendGUI.Pages.Adding.AddItemPage;
 import app.frontendGUI.Pages.Adding.AddOrderPage;
@@ -23,13 +24,13 @@ public class App {
                             VIEW_ITEM_PRICE_IN_ORDER_PAGE = 5, VIEW_ITEM_PRICE_IN_CONTRACT_PAGE = 6, 
                             VIEW_ORDERS_FOR_ITEM_PAGE = 7, VIEW_CONTRACT_AND_SUPPLIER_INFO_PAGE = 8,
                             VIEW_AMT_OF_ITEM_STILL_UNDER_CONTRACT_PAGE = 9, ADD_PROJECT_PAGE = 10,
-                            ADD_ITEM_PAGE = 11, ADD_CONTRACT_PAGE = 12, ADD_ORDER_PAGE = 13, VIEW_PAGE = 14;
+                            ADD_ITEM_PAGE = 11, ADD_CONTRACT_PAGE = 12, ADD_ORDER_PAGE = 13, VIEW_PAGE = 14, ADD_CONTRACT_ITEMS = 15;
     public static void main(String[] args) throws Exception {
         System.out.println("Making GUI...");
         GUI g = new GUI(new MenuPage(), new AddDataMenuPage(), new ViewDataMenuPage(), new AddSupplierPage(),
                 new ViewItemInOrderPage(), new ViewItemPriceInOrderPage(), new ViewItemPriceInContractPage(), 
                 new ViewOrdersForItemPage(), new ViewContractAndSupplierInfoPage(), new ViewAmtOfItemStillUnderContractPage(), 
-                new AddProjectPage(), new AddItemPage(), new AddContractPage(), new AddOrderPage(), new ViewPage());
+                new AddProjectPage(), new AddItemPage(), new AddContractPage(), new AddOrderPage(), new ViewPage(), new AddContractItemsPage());
                 
         System.out.println("Query Tests...");
         Queries query = new Queries();
