@@ -5,7 +5,9 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import app.App;
@@ -13,7 +15,12 @@ import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
 public class AddContractPage extends GUIPage {
+<<<<<<< HEAD
     
+=======
+    private ArrayList<VariableComponent> contractItemInputs;
+    private int contractNum;
+>>>>>>> fa10f7ef43231723d737aca9e4f6764770ffbc60
 
     public AddContractPage() {
         super();
@@ -24,6 +31,7 @@ public class AddContractPage extends GUIPage {
     public VariableComponent[] createComponents() { //TODO this page layout with have to be variable (many items added at once)
         VariableComponent[] components = {
             new VariableComponent(new JLabel("Add Contract", SwingConstants.CENTER), .5, .1, 1, .2),
+
             new VariableComponent(new JLabel("Contract Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JLabel("Supplier Number:"), .2, .4, 1 / 5.0, 1 / 6.0),
@@ -31,11 +39,13 @@ public class AddContractPage extends GUIPage {
             new VariableComponent(new JLabel("Date of Contract:"), .2, .5, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
+            new VariableComponent(new JLabel("Amount of Items to add to this contract:"), .2, .6, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JSpinner(new SpinnerNumberModel(0, Integer.MAX_VALUE, 0, 1)), .6, .6, 1 / 3.0, 1 / 17.0),
 
             new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 10, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsInRange(components, 0, 8, Color.WHITE, Color.WHITE);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
@@ -46,21 +56,35 @@ public class AddContractPage extends GUIPage {
             System.out.println("Back to menu page");
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
-            System.out.println("Back to menu page");
-            
-            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6, 8, 10, 12);
-            int num1 = Integer.parseInt(values[0]);
-            int num2 = Integer.parseInt(values[1]);
-            int num3 = Integer.parseInt(values[3]);
-            int num4 = Integer.parseInt(values[4]);
-            int num5 = Integer.parseInt(values[5]);
+            System.out.println("Submitted");
+            if (contractItemInputs == null) {
+                String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
+                this.contractNum = Integer.parseInt(values[0]);
+                int supplierNum = Integer.parseInt(values[1]);
 
-            this.queries.insertContract(num1, values[1], num2);
-            this.queries.insertContractItem(num1, num3, num4, num5);
+                this.queries.insertContract(contractNum, values[1], supplierNum);
+            }
+            
+            
+            //this.queries.insertContractItem(num1, num3, num4, num5);
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }
 
-    //public void 
+    public void makeNContractItemInputSets() {
+
+
+        contractItemInputs.add(new VariableComponent(new JLabel("Item Number:"), .2, .6, 1 / 5.0, 1 / 6.0));
+        contractItemInputs.add(new VariableComponent(new JLabel("Contract Price:"), .2, .7, 1 / 5.0, 1 / 6.0));
+        contractItemInputs.add(new VariableComponent(new JLabel("Contract Amount:"), .2, .8, 1 / 5.0, 1 / 6.0));
+
+
+    }
+
+    private void makeSingleItemInputSetAtXLocation(int xPercent) {
+        contractItemInputs.add(new VariableComponent(new JTextArea(), .6, .6, 1 / 12.0, 1 / 17.0));
+        contractItemInputs.add(new VariableComponent(new JTextArea(), .6, .7, 1 / 12.0, 1 / 17.0));
+        contractItemInputs.add(new VariableComponent(new JTextArea(), .6, .8, 1 / 12.0, 1 / 17.0));
+    }
 
 }
