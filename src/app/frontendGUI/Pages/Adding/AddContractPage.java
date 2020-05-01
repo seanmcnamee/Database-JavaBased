@@ -2,7 +2,6 @@ package app.frontendGUI.Pages.Adding;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +13,7 @@ import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
 public class AddContractPage extends GUIPage {
-    private ArrayList<VariableComponent> contractItemInputs = new ArrayList<> ();;
+    
 
     public AddContractPage() {
         super();
