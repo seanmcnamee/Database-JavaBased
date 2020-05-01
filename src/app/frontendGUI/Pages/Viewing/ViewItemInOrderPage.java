@@ -25,8 +25,6 @@ public class ViewItemInOrderPage extends GUIPage {
                 new VariableComponent(new JLabel("View items in:", SwingConstants.CENTER), .5, .1, 1, .2),
                 new VariableComponent(new JLabel("Order Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
-                new VariableComponent(new JLabel("Item Order:"), .2, .4, 1 / 5.0, 1 / 6.0),
-                new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
 
                 new VariableComponent(new JButton("Submit"), .5, .4, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
@@ -43,6 +41,13 @@ public class ViewItemInOrderPage extends GUIPage {
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
             //TODO Add submit code (connect to SQL)
+
+            String[] values = this.getStringsOfTextAreas(components, 2);
+            int num = Integer.parseInt(values[0]);
+            
+            
+
+            this.queries.viewItemInOrder(num);
             
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);

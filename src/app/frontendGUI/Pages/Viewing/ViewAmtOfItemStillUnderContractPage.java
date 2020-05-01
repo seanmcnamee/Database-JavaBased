@@ -43,6 +43,13 @@ public class ViewAmtOfItemStillUnderContractPage extends GUIPage {
             System.out.println("Back to menu page");
             //TODO Add submit code (connect to SQL)
 
+            String[] values = this.getStringsOfTextAreas(components, 2, 4);
+            int num = Integer.parseInt(values[0]);
+            int num2 = Integer.parseInt(values[1]);
+            
+
+            this.queries.viewAmtOfItemStillUnderContract(num, num2);
+
 
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
             view.setViews("Items still under contract", "STRING_FROM_SQL_RETURN");
