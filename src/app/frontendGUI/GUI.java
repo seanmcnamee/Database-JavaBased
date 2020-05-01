@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 
 /**
  * GUI
@@ -75,10 +77,26 @@ public class GUI implements ComponentListener, ActionListener {
         System.out.println(
                 "frame size: " + frame.getContentPane().getWidth() + ", " + frame.getContentPane().getHeight());
 
-        frame.addComponentListener(this);
+        addListeners();
         //frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
         switchToAndReturnPage(0);
+    }
+
+    private void addListeners() {
+        frame.addComponentListener(this);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                queries.stopConnection();
+            }
+            public void windowOpened(WindowEvent e) {}
+            public void windowClosed(WindowEvent e) {}
+            public void windowIconified(WindowEvent e) {}
+            public void windowDeiconified(WindowEvent e) {}
+            public void windowActivated(WindowEvent e) {}
+            public void windowDeactivated(WindowEvent e) {}
+        });
     }
 
     // May have a problem with having too much of a panel on something

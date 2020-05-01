@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 public class Queries {
 
-	private final String TAG = "Queries: ";
 	private final String DB_URL = "jdbc:mariadb://23.236.194.106:3306/csci300?user=csciremote&password=deltabravo2020";
 
 	private Connection conn;
@@ -47,9 +46,13 @@ public class Queries {
 		return resultSet;
 	}
 
-	//INSERTION
-	public ResultSet insertContract(int contractNum, String dateOfContract, int itemNum, int contractPrice, int contractAmount) {
-		return performStatement("INSERT INTO Contracts(CNO, DATEOFCONTRACT, INO, CPRICE, CAMOUNT) VALUES(" + contractNum + ", '" + dateOfContract + "', " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
+	/////////////////////////////////INSERTION//////////////////////////////////////////
+	public ResultSet insertContract(int contractNum, String dateOfContract, int supplierNum) {
+		return performStatement("INSERT INTO Contracts(`CONTRACT-NO`, `DATE-OF-CONTRACT`, `SUPPLIER-NO`) VALUES(" + contractNum + ", '" + dateOfContract + ", " + supplierNum + ");");
+	}
+
+	public ResultSet insertContractItem(int contractNum, int itemNum, int contractPrice, int contractAmount) {
+		return performStatement("INSERT INTO Contracts(CONTRACT-NO, INO, CPRICE, CAMOUNT) VALUES(" + contractNum + ", " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
 	}
 
 	public ResultSet insertProject(int projNum, String projData) {
@@ -69,30 +72,34 @@ public class Queries {
 	}
 
 
-	//VIEWING
-	public ResultSet viewAmtOfItemStillUnderContract() {
-		return performStatement("");
+	//////////////////////////////////VIEWING///////////////////////////////////////////
+	public ResultSet viewAmtOfItemStillUnderContract(int itemNum, int contractNum) {
+		return performStatement("SELECT CONTRACT-AMOUNT FROM Contract-Item WHERE " +
+								"ITEM-NO = " + itemNum + " AND CONTRACT-NO = " + contractNum + ";");
 	}
 
-	public ResultSet viewContractAndSupplierInfo() {
-		return performStatement("");
+	public ResultSet viewContractAndSupplierInfo(int supplierNum, int contractNum) {
+		return performStatement("SELECT * FROM Contract	INNER JOIN Supplier ON " +
+								"Contract.SUPPLIER-NO = " + supplierNum + " AND CONTRACT-NO = " + contractNum + ";");
 	}
 
-	public ResultSet viewItemInOrder() {
-		return performStatement("");
+	public ResultSet viewItemInOrder(int orderNum) {
+		return performStatement("SELECT * FROM Items WHERE ITEM-NO IN " +
+									"SELECT ITEM-NO FROM ORDER-ITEM WHERE ORDER-NO = " + orderNum + ";");
 	}
 
-	public ResultSet viewItemPriceInContract() {
-		return performStatement("");
+	public ResultSet viewItemPriceInContract(int itemNum, int contractNum) {
+		return performStatement("SELECT CONTRACT-PRICE FROM CONTRACT-ITEM WHERE ITEM-NO = " + itemNum + " AND CONTRACT-NO = " + contractNum + ";");
 	}
 
 	public ResultSet viewItemPriceInOrder(int itemNum, int orderNum) {
-		return performStatement("SELECT CONTRACT-PRICE FROM Contract-Item WHERE ITEM-NO = '" + itemNum + "' and CONTRACT-NO in " +
-								"SELECT Contract-No FROM Order WHERE ORDER-NO = " + orderNum + ";");
+		return performStatement("SELECT CONTRACT-PRICE FROM Contract-Item WHERE ITEM-NO = '" + itemNum + "' AND CONTRACT-NO in " +
+									"SELECT CONTRACT-NO FROM Order WHERE ORDER-NO = " + orderNum + ";");
 	}
 
-	public ResultSet viewOrdersForItem(int orderNum) {
-		return performStatement("SELECT * FROM orders WHERE ONO = " + orderNum + ";");
+	public ResultSet viewOrdersForItem(int itemNum) {
+		return performStatement("SELECT * FROM Orders WHERE ORDER-NO IN " +
+									"SELECT ORDER-NO FROM ORDER-ITEM WHERE ITEM-NO = " + itemNum + ";");
 	}
 
 
