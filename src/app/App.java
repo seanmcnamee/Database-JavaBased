@@ -1,6 +1,5 @@
 package app;
 
-import app.backendSQL.Queries;
 import app.frontendGUI.GUI;
 import app.frontendGUI.Pages.AddDataMenuPage;
 import app.frontendGUI.Pages.Adding.AddContractItemsPage;
@@ -31,9 +30,7 @@ public class App {
                 new ViewItemInOrderPage(), new ViewItemPriceInOrderPage(), new ViewItemPriceInContractPage(), 
                 new ViewOrdersForItemPage(), new ViewContractAndSupplierInfoPage(), new ViewAmtOfItemStillUnderContractPage(), 
                 new AddProjectPage(), new AddItemPage(), new AddContractPage(), new AddOrderPage(), new ViewPage(), new AddContractItemsPage());
-                
-        System.out.println("Query Tests...");
-        Queries query = new Queries();
+        g.start();
         //query.testQuery();
     }
 }

@@ -1,13 +1,9 @@
 package app.frontendGUI.Pages.Adding;
 import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import javax.swing.JTextArea;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import app.App;

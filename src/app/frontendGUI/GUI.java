@@ -32,10 +32,12 @@ public class GUI implements ComponentListener, ActionListener {
     public GUI(GUIPage... pages) {
         this.queries = new Queries();
         this.pages = pages;
+    }
+
+    public void start() {
         setupPages();
         setupGUI();
         
-
         frame.setVisible(true);
     }
 
