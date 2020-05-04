@@ -48,7 +48,7 @@ public class Queries {
 
 	/////////////////////////////////   INSERTION   //////////////////////////////////////////
 	public ResultSet insertContract(int contractNum, String dateOfContract, int supplierNum) {
-		return performStatement("INSERT INTO Contracts(`CONTRACT-NO`, `DATE-OF-CONTRACT`, `SUPPLIER-NO`) VALUES(" + contractNum + ", '" + dateOfContract + ", " + supplierNum + ");");
+		return performStatement("INSERT INTO Contracts(`CONTRACT-NO`, `DATE-OF-CONTRACT`, `SUPPLIER-NO`) VALUES(" + contractNum + ", '" + dateOfContract + "', " + supplierNum + ");");
 	}
 
 	public ResultSet insertContractItem(int contractNum, int itemNum, int contractPrice, int contractAmount) {
@@ -82,6 +82,12 @@ public class Queries {
 								"`ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` = " + contractNum + ";");
 	}
 
+	public ResultSet viewAmtOfItemStillUnderContractInOrder(int itemNum, int orderNum) {
+		return performStatement("SELECT `CONTRACT-AMOUNT` FROM `Contract-Item` WHERE " +
+								"`ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` IN " + 
+								"SELECT `CONTRACT-NO` FROM Orders WHERE `ORDER-NO` = " + orderNum + ";");
+	}
+
 	public ResultSet viewContractAndSupplierInfo(int supplierNum, int contractNum) {
 		return performStatement("SELECT * FROM Contract	INNER JOIN Supplier ON " +
 								"Contract.SUPPLIER-NO = " + supplierNum + " AND `CONTRACT-NO` = " + contractNum + ";");
@@ -110,8 +116,11 @@ public class Queries {
 	//////////////////////////////   UPDATING    ////////////////////////////////////////
 
 
-	//TODO update to the CONTRACT-AMOUNT based on the following inputs: contract-No and a new integer contract-amount
-
+	public ResultSet updateContractAmountForOrderItem(int orderNum, int itemNum, int contractAmount) {
+		return performStatement("UPDATE `Contract-Item` SET `CONTRACT-AMOUNT` = " + contractAmount +
+									" WHERE `ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` IN " + 
+									"SELECT `CONTRACT-NO` FROM Orders WHERE `ORDER-NO` = " + orderNum + ";");
+	}
 
 
 

@@ -1,5 +1,7 @@
 package app.frontendGUI.Pages.Adding;
 
+import java.sql.ResultSet;
+
 import java.awt.Color;
 
 import javax.swing.JButton;
@@ -43,10 +45,20 @@ public class AddOrderItemPage extends DynamicInputGUIPage {
                 int itemNum = Integer.parseInt(values[0]);
                 int orderQuantity = Integer.parseInt(values[1]);
 
-                //TODO: Check to make sure there's enough CONTRACT-AMOUNT for this ORDER-QTY
-                
+                int underContract = 0;
+                ResultSet underContractSet = this.queries.viewAmtOfItemStillUnderContractInOrder(itemNum, orderNum);
+                //TODO figure out what's in this.
 
-                this.queries.insertOrderItem(itemNum, orderNum, orderQuantity);
+
+                if (underContract >= orderQuantity) {
+                    underContract -= orderQuantity;
+                    this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
+                    this.queries.insertOrderItem(itemNum, orderNum, orderQuantity);
+                }   else {
+                    //TODO notify user that there was a problem with the order.
+                }
+
+                
             }
                 
             prepareAndSwitchToPage(App.ADD_DATA, main);

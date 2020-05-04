@@ -2,7 +2,6 @@ package app.frontendGUI;
 
 import javax.swing.JTextArea;
 
-import app.App;
 import app.frontendGUI.GUIPage;
 
 /**
