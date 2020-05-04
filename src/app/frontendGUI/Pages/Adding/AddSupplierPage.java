@@ -31,8 +31,10 @@ public class AddSupplierPage extends GUIPage {
                 new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
                 new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
-                new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 6, Color.WHITE, Color.WHITE);
+                new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
+            };
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4, 6);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }

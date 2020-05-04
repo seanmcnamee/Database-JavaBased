@@ -1,23 +1,20 @@
 package app.frontendGUI.Pages.Adding;
 
-import app.App;
-import app.frontendGUI.DynamicInputGUIPage;
-import app.frontendGUI.GUI;
-
 import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-/**
- * AddContractItemsPage
- */
-public class AddContractItemsPage extends DynamicInputGUIPage {
-    private int contractNum;
+import app.App;
+import app.frontendGUI.DynamicInputGUIPage;
+import app.frontendGUI.GUI;
 
-    public AddContractItemsPage() {
-        super(3, .4, .3);
+public class AddOrderItemPage extends DynamicInputGUIPage {
+    private int orderNum;
+
+    public AddOrderItemPage() {
+        super(2, .5, .3);
         this.panel.setBackground(Color.GRAY);
     }
 
@@ -27,35 +24,37 @@ public class AddContractItemsPage extends DynamicInputGUIPage {
             new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1),
 
-            new VariableComponent(new JLabel("Add Items To Contract", SwingConstants.CENTER), .5, .1, 1, .2),
+            new VariableComponent(new JLabel("Add Items To Order", SwingConstants.CENTER), .5, .1, 1, .2),
 
             new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JLabel("Contract Price:"), .2, .4, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JLabel("Contract Amount:"), .2, .5, 1 / 5.0, 1 / 6.0) };
+            new VariableComponent(new JLabel("Order Quantity:"), .2, .4, 1 / 5.0, 1 / 6.0) };
         return components;
     }
 
     @Override
     public void actionPerformed(Object obj, GUI main) {
         if (obj.equals(this.components[1].component)) {
-            System.out.println("Back to Contract page");
-            prepareAndSwitchToPage(App.ADD_CONTRACT_PAGE, main);
+            System.out.println("Back to Order page");
+            prepareAndSwitchToPage(App.ADD_ORDER_PAGE, main);
         } else if (obj.equals(this.components[0].component)) {
             System.out.println("Submitted");
 
             for (String[] values : getStringsOfTextAreasForEachGroup()) {
                 int itemNum = Integer.parseInt(values[0]);
-                int contractPrice = Integer.parseInt(values[1]);
-                int contractAmount = Integer.parseInt(values[2]);
-                this.queries.insertContractItem(this.contractNum, itemNum, contractPrice, contractAmount);
+                int orderQuantity = Integer.parseInt(values[1]);
+
+                //TODO: Check to make sure there's enough CONTRACT-AMOUNT for this ORDER-QTY
+                
+
+                this.queries.insertOrderItem(itemNum, orderNum, orderQuantity);
             }
                 
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }
 
-    public void setContractNum(int contractNum) {
-        this.contractNum = contractNum;
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
     }
-
+    
 }

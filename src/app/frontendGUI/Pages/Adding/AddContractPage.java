@@ -22,7 +22,7 @@ public class AddContractPage extends GUIPage {
     }
 
     @Override
-    public VariableComponent[] createComponents() { //TODO this page layout with have to be variable (many items added at once)
+    public VariableComponent[] createComponents() { 
         VariableComponent[] components = {
             new VariableComponent(new JLabel("Add Contract", SwingConstants.CENTER), .5, .1, 1, .2),
 
@@ -39,7 +39,8 @@ public class AddContractPage extends GUIPage {
             new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 8, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5, 7);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4, 6, 8);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
@@ -55,16 +56,14 @@ public class AddContractPage extends GUIPage {
                 int contractNum = Integer.parseInt(values[0]);
                 int supplierNum = Integer.parseInt(values[1]);
 
-                this.queries.insertContract(contractNum, values[1], supplierNum);
+                //TODO uncomment query
+                //this.queries.insertContract(contractNum, values[1], supplierNum);
                 
-                
-                System.out.println("TEST: " + ((JSpinner) this.components[8].component).getValue().toString());
                 int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
-                System.out.println("Test2:" + num);
 
                 
                 AddContractItemsPage contractItems = (AddContractItemsPage) prepareAndSwitchToPage(App.ADD_CONTRACT_ITEMS, main);
-                contractItems.makeNContractItemInputSets(num, main);
+                contractItems.makeNJTextAreaSets(num, main);
                 contractItems.setContractNum(contractNum);
         }
     }

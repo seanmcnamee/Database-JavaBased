@@ -5,7 +5,9 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import app.App;
@@ -30,11 +32,14 @@ public class AddOrderPage extends GUIPage {
             new VariableComponent(new JLabel("Date Completed:"), .2, .5, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
+            new VariableComponent(new JLabel("Amount of Items to add to this Order:"), .2, .6, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .6, 1 / 3.0, 1 / 17.0),
 
-            new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JButton("Submit"), .5, .7, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 6, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5, 7);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4, 6, 8);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
@@ -48,11 +53,16 @@ public class AddOrderPage extends GUIPage {
             System.out.println("Back to menu page");
             
             String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
-            int num = Integer.parseInt(values[0]);
+            int orderNum = Integer.parseInt(values[0]);
 
-            this.queries.insertOrder(num, values[1], values[2]);
+            //TODO uncomment this query
+            //this.queries.insertOrder(orderNum, values[1], values[2]);
 
-            prepareAndSwitchToPage(App.ADD_DATA, main);
+            int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
+            
+            AddOrderItemPage orderItems = (AddOrderItemPage) prepareAndSwitchToPage(App.ADD_ORDER_ITEMS, main);
+            orderItems.makeNJTextAreaSets(num, main);
+            orderItems.setOrderNum(orderNum);
         }
     }
 }

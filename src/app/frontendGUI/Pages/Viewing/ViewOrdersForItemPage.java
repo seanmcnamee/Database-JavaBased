@@ -27,7 +27,8 @@ public class ViewOrdersForItemPage extends GUIPage{
 
                 new VariableComponent(new JButton("Submit"), .5, .4, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
-        this.setBackgroundAndTextOfComponentsInRange(components, 0, 2, Color.WHITE, Color.WHITE);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }

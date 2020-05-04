@@ -46,13 +46,13 @@ public class Queries {
 		return resultSet;
 	}
 
-	/////////////////////////////////INSERTION//////////////////////////////////////////
+	/////////////////////////////////   INSERTION   //////////////////////////////////////////
 	public ResultSet insertContract(int contractNum, String dateOfContract, int supplierNum) {
 		return performStatement("INSERT INTO Contracts(`CONTRACT-NO`, `DATE-OF-CONTRACT`, `SUPPLIER-NO`) VALUES(" + contractNum + ", '" + dateOfContract + ", " + supplierNum + ");");
 	}
 
 	public ResultSet insertContractItem(int contractNum, int itemNum, int contractPrice, int contractAmount) {
-		return performStatement("INSERT INTO Contracts(CONTRACT-NO, INO, CPRICE, CAMOUNT) VALUES(" + contractNum + ", " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
+		return performStatement("INSERT INTO `Contract-Item`(CONTRACT-NO, INO, CPRICE, CAMOUNT) VALUES(" + contractNum + ", " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
 	}
 
 	public ResultSet insertProject(int projNum, String projData) {
@@ -61,6 +61,10 @@ public class Queries {
 
 	public ResultSet insertOrder(int orderNum, String dateRequired, String dateCompleted) {
 		return performStatement("INSERT INTO Orders(ONO, ODATEREQ , ODATECOMP) VALUES(" + orderNum + ",'" + dateRequired + "','" + dateCompleted + "');");
+	}
+
+	public ResultSet insertOrderItem(int itemNum, int orderNum, int orderQuantity) {
+		return performStatement("INSERT INTO `Order-Item`(`ITEM-NO`, `ORDER-NO` , `ORDER-QTY`) VALUES(" + itemNum + "," + orderNum + "," + orderQuantity + ");");
 	}
 
 	public ResultSet insertItem(int itemNum, String itemDesc) {
@@ -72,40 +76,44 @@ public class Queries {
 	}
 
 
-	//////////////////////////////////VIEWING///////////////////////////////////////////
+	//////////////////////////////////   VIEWING   ///////////////////////////////////////////
 	public ResultSet viewAmtOfItemStillUnderContract(int itemNum, int contractNum) {
-		return performStatement("SELECT CONTRACT-AMOUNT FROM Contract-Item WHERE " +
-								"ITEM-NO = " + itemNum + " AND CONTRACT-NO = " + contractNum + ";");
+		return performStatement("SELECT `CONTRACT-AMOUNT` FROM `Contract-Item` WHERE " +
+								"`ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` = " + contractNum + ";");
 	}
 
 	public ResultSet viewContractAndSupplierInfo(int supplierNum, int contractNum) {
 		return performStatement("SELECT * FROM Contract	INNER JOIN Supplier ON " +
-								"Contract.SUPPLIER-NO = " + supplierNum + " AND CONTRACT-NO = " + contractNum + ";");
+								"Contract.SUPPLIER-NO = " + supplierNum + " AND `CONTRACT-NO` = " + contractNum + ";");
 	}
 
 	public ResultSet viewItemInOrder(int orderNum) {
-		return performStatement("SELECT * FROM Items WHERE ITEM-NO IN " +
-									"SELECT ITEM-NO FROM ORDER-ITEM WHERE ORDER-NO = " + orderNum + ";");
+		return performStatement("SELECT * FROM Items WHERE `ITEM-NO` IN " +
+									"SELECT `ITEM-NO` FROM `ORDER-ITEM` WHERE `ORDER-NO` = " + orderNum + ";");
 	}
 
 	public ResultSet viewItemPriceInContract(int itemNum, int contractNum) {
-		return performStatement("SELECT CONTRACT-PRICE FROM CONTRACT-ITEM WHERE ITEM-NO = " + itemNum + " AND CONTRACT-NO = " + contractNum + ";");
+		return performStatement("SELECT `CONTRACT-PRICE` FROM `CONTRACT-ITEM` WHERE `ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` = " + contractNum + ";");
 	}
 
 	public ResultSet viewItemPriceInOrder(int itemNum, int orderNum) {
-		return performStatement("SELECT CONTRACT-PRICE FROM Contract-Item WHERE ITEM-NO = '" + itemNum + "' AND CONTRACT-NO in " +
-									"SELECT CONTRACT-NO FROM Order WHERE ORDER-NO = " + orderNum + ";");
+		return performStatement("SELECT `CONTRACT-PRICE` FROM `Contract-Item` WHERE `ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` in " +
+									"SELECT `CONTRACT-NO` FROM Order WHERE `ORDER-NO` = " + orderNum + ";");
 	}
 
 	public ResultSet viewOrdersForItem(int itemNum) {
-		return performStatement("SELECT * FROM Orders WHERE ORDER-NO IN " +
-									"SELECT ORDER-NO FROM ORDER-ITEM WHERE ITEM-NO = " + itemNum + ";");
+		return performStatement("SELECT * FROM Orders WHERE `ORDER-NO` IN " +
+									"SELECT `ORDER-NO` FROM `ORDER-ITEM` WHERE `ITEM-NO` = " + itemNum + ";");
 	}
 
 
+	//////////////////////////////   UPDATING    ////////////////////////////////////////
 
 
-	
+	//TODO update to the CONTRACT-AMOUNT based on the following inputs: contract-No and a new integer contract-amount
+
+
+
 
 			/**
 			Statement stmt = conn.createStatement();

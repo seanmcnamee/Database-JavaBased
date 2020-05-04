@@ -90,6 +90,7 @@ public class GUI implements ComponentListener, ActionListener {
         frame.addWindowListener(new WindowListener() {
             @Override
             public void windowClosing(WindowEvent e) {
+                System.out.println("Closing SQL connection...");
                 queries.stopConnection();
             }
             public void windowOpened(WindowEvent e) {}
@@ -152,20 +153,17 @@ public class GUI implements ComponentListener, ActionListener {
 
     @Override
     public void componentMoved(ComponentEvent e) {
-        // TODO Auto-generated method stub
         // System.out.println("Moved");
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
-        // TODO Auto-generated method stub
         System.out.println("Shown");
 
     }
 
     @Override
     public void componentHidden(ComponentEvent e) {
-        // TODO Auto-generated method stub
         System.out.println("Hidden");
     }
 

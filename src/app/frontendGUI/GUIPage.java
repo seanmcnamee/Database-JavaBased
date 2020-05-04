@@ -76,6 +76,13 @@ public abstract class GUIPage {
         }
     }
 
+    protected void setBackgroundAndTextOfComponentsAtIndices(VariableComponent[] components, Color backColor, Color textColor, int... indices) {
+        for (int index : indices) {
+            components[index].component.setBackground(backColor);
+            components[index].component.setForeground(textColor);
+        }
+    }
+
     protected String[] getStringsOfTextAreas(VariableComponent[] components, int... indices) {
         String[] values = new String[indices.length];
         int valueIndex = 0;
