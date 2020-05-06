@@ -52,27 +52,27 @@ public class Queries {
 	}
 
 	public ResultSet insertContractItem(int contractNum, int itemNum, int contractPrice, int contractAmount) {
-		return performStatement("INSERT INTO `Contract-Item`(CONTRACT-NO, INO, CPRICE, CAMOUNT) VALUES(" + contractNum + ", " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
+		return performStatement("INSERT INTO `Contract-Item`(`CONTRACT-NO`, `ITEM-NO`, `CONTRACT-PRICE`, `CONTRACT-AMOUNT`) VALUES(" + contractNum + ", " + itemNum + ", " + contractPrice + ", " + contractAmount + ");");
 	}
 
 	public ResultSet insertProject(int projNum, String projData) {
-		return performStatement("INSERT INTO Projects(PNO, PDATA) VALUES(" + projNum + ",'" + projData + "');");
+		return performStatement("INSERT INTO Projects(`PROJECT-NO`, `PROJECT-DATA`) VALUES(" + projNum + ", '" + projData + "');");
 	}
 
 	public ResultSet insertOrder(int orderNum, String dateRequired, String dateCompleted) {
-		return performStatement("INSERT INTO Orders(ONO, ODATEREQ , ODATECOMP) VALUES(" + orderNum + ",'" + dateRequired + "','" + dateCompleted + "');");
+		return performStatement("INSERT INTO Orders(`ORDER-NO`, `DATE-REQUIRED` , `DATE-COMPLETED`) VALUES(" + orderNum + ", '" + dateRequired + "', '" + dateCompleted + "');");
 	}
 
 	public ResultSet insertOrderItem(int itemNum, int orderNum, int orderQuantity) {
-		return performStatement("INSERT INTO `Order-Item`(`ITEM-NO`, `ORDER-NO` , `ORDER-QTY`) VALUES(" + itemNum + "," + orderNum + "," + orderQuantity + ");");
+		return performStatement("INSERT INTO `Order-Item`(`ITEM-NO`, `ORDER-NO` , `ORDER-QTY`) VALUES(" + itemNum + ", " + orderNum + ", " + orderQuantity + ");");
 	}
 
 	public ResultSet insertItem(int itemNum, String itemDesc) {
-		return performStatement("INSERT INTO Items(INO, IDESC) VALUES(" + itemNum + ",'" + itemDesc + "');");
+		return performStatement("INSERT INTO Items(`ITEM-NO`, `ITEM-DESCRIPTION`) VALUES(" + itemNum + ", '" + itemDesc + "');");
 	}
 
 	public ResultSet insertSupplier(int supplierNum, String supplierAddress, String supplierName) {
-		return performStatement("INSERT INTO Suppliers(SNO, SADDRESS, SNAME) VALUES(" + supplierNum + ",'" + supplierAddress + "','" + supplierName + "');");
+		return performStatement("INSERT INTO Suppliers(`SUPPLIER-NO`, `SUPPLIER-ADDRESS`, `SUPPLIER-NAME`) VALUES(" + supplierNum + ", '" + supplierAddress + "', '" + supplierName + "');");
 	}
 
 
