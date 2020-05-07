@@ -1,7 +1,7 @@
 package app.frontendGUI.Pages.Adding;
 
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.awt.Color;
 
 import javax.swing.JButton;
@@ -22,14 +22,13 @@ public class AddOrderItemPage extends DynamicInputGUIPage {
 
     @Override
     public VariableComponent[] createComponents() {
-        VariableComponent[] components = { 
-            new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JButton("Back"), .1, .95, .2, .1),
+        VariableComponent[] components = { new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JButton("Back"), .1, .95, .2, .1),
 
-            new VariableComponent(new JLabel("Add Items To Order", SwingConstants.CENTER), .5, .1, 1, .2),
+                new VariableComponent(new JLabel("Add Items To Order", SwingConstants.CENTER), .5, .1, 1, .2),
 
-            new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JLabel("Order Quantity:"), .2, .4, 1 / 5.0, 1 / 6.0) };
+                new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JLabel("Order Quantity:"), .2, .4, 1 / 5.0, 1 / 6.0) };
         return components;
     }
 
@@ -47,21 +46,46 @@ public class AddOrderItemPage extends DynamicInputGUIPage {
 
                 int underContract = 0;
                 ResultSet underContractSet = this.queries.viewAmtOfItemStillUnderContractInOrder(itemNum, orderNum);
-                //TODO figure out what's in this.
-
-
-                if (underContract >= orderQuantity) {
-                    underContract -= orderQuantity;
-                    this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
-                    this.queries.insertOrderItem(itemNum, orderNum, orderQuantity);
-                }   else {
-                    //TODO notify user that there was a problem with the order.
+                System.out.println("Evaluating");
+                // TODO figure out what's in this.
+                try {
+                    if (underContractSet.next()) {
+                        underContract = Integer.parseInt(underContractSet.getString("CONTRACT-AMOUNT"));
+                        System.out.println("Current contract amount: " + underContract);
+                        if (underContract >= orderQuantity) {
+                            underContract -= orderQuantity;
+                            System.out.println("New contract amount: " + underContract);
+                            System.out.println("setting new contract amount...");
+                            this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
+                            System.out.println("Inserting item...");
+                            this.queries.insertOrderItem(orderNum, itemNum, orderQuantity);
+                            prepareAndSwitchToPage(App.ADD_DATA, main);
+                        }   else {
+                            //TODO notify user that there was a problem with the order.
+                            System.out.println("Not enough orders left");
+                        }
+                    }
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    System.out.println("Problem with getting the SQL Contract Amount");
                 }
 
-                
+                /**
+			Statement stmt = conn.createStatement();
+			resultSet = stmt.executeQuery("SELECT * FROM `Orders`");
+			
+			while(resultSet.next()) {
+				System.out.println("Query Result: " + resultSet.getString("ORDER-NO"));
+				
+				ResultSetMetaData metaData = resultSet.getMetaData();
+				System.out.println("DB Result: " + metaData.getColumnCount());
+				for(int i = 1; i <= metaData.getColumnCount(); i++){
+					System.out.println("DB Result: " + resultSet.getObject(i));
+				} // end for
+			} // end while loop
+			*/
             }
-                
-            prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }
 

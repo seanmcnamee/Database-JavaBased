@@ -95,6 +95,7 @@ public abstract class GUIPage {
 
     protected GUIPage prepareAndSwitchToPage(int page, GUI main) {
         this.panel.setVisible(false);
+        clearAllJTextAreas();
         GUIPage newPage = main.switchToAndReturnPage(page);
         main.setComponentSizeAndLocation();
         return newPage;
@@ -103,6 +104,14 @@ public abstract class GUIPage {
     private void addComponentsToPanel() {
         for (VariableComponent vB: this.components) {
             panel.add(vB.component);
+        }
+    }
+
+    private void clearAllJTextAreas() {
+        for (VariableComponent vC : this.components) {
+            if (vC.component.getClass().equals(JTextArea.class)) {
+                ((JTextArea) vC.component).setText(null);
+            }
         }
     }
 }

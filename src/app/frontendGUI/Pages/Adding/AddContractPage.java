@@ -56,8 +56,8 @@ public class AddContractPage extends GUIPage {
                 int contractNum = Integer.parseInt(values[0]);
                 int supplierNum = Integer.parseInt(values[1]);
 
-                //TODO uncomment query
-                //this.queries.insertContract(contractNum, values[1], supplierNum);
+                System.out.println("Contract: CNum, Date, SupplierNum, : " + contractNum + " " + values[2] + " " + supplierNum);
+                this.queries.insertContract(contractNum, values[2], supplierNum);
                 
                 int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
 

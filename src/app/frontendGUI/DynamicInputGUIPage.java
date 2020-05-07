@@ -72,7 +72,7 @@ public abstract class DynamicInputGUIPage extends GUIPage {
         //Add all the components to the JPanel
         this.panel.removeAll();
         for (int i = 0; i < components.length; i++) {
-            System.out.println("c: " + (this.components[i].component.getClass().toString()));
+            //System.out.println("c: " + (this.components[i].component.getClass().toString()));
             this.panel.add(this.components[i].component);
         }
 

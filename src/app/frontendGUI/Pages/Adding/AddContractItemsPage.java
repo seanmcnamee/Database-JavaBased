@@ -45,8 +45,9 @@ public class AddContractItemsPage extends DynamicInputGUIPage {
 
             for (String[] values : getStringsOfTextAreasForEachGroup()) {
                 int itemNum = Integer.parseInt(values[0]);
-                int contractPrice = Integer.parseInt(values[1]);
+                double contractPrice = Double.parseDouble(values[1]);
                 int contractAmount = Integer.parseInt(values[2]);
+                System.out.println("CNum, INum, CPrice, CAmt " + this.contractNum + " " + itemNum + " " + contractPrice + " " + contractAmount);
                 this.queries.insertContractItem(this.contractNum, itemNum, contractPrice, contractAmount);
             }
                 

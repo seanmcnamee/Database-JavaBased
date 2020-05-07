@@ -49,7 +49,7 @@ public class AddProjectPage extends GUIPage {
             int num = Integer.parseInt(values[0]);
 
             this.queries.insertProject(num, values[1]);
-            //TODO Add submit code (connect to SQL)
+
             prepareAndSwitchToPage(App.ADD_DATA, main);
         }
     }

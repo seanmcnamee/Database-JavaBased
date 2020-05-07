@@ -29,13 +29,15 @@ public class AddOrderPage extends GUIPage {
             new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JLabel("Date Required:"), .2, .4, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JLabel("Date Completed:"), .2, .5, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JLabel("Project Number:"), .2, .5, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JLabel("Contract Number:"), .2, .6, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JTextArea(), .6, .6, 1 / 3.0, 1 / 17.0),
 
-            new VariableComponent(new JLabel("Amount of Items to add to this Order:"), .2, .6, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .6, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JLabel("Amount of Items to add to this Order:"), .2, .7, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .7, 1 / 3.0, 1 / 17.0),
 
-            new VariableComponent(new JButton("Submit"), .5, .7, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JButton("Submit"), .5, .8, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5, 7);
@@ -52,13 +54,15 @@ public class AddOrderPage extends GUIPage {
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
             
-            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
+            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6, 8);
             int orderNum = Integer.parseInt(values[0]);
+            int projectNum = Integer.parseInt(values[2]);
+            int contractNum = Integer.parseInt(values[3]);
 
-            //TODO uncomment this query
-            //this.queries.insertOrder(orderNum, values[1], values[2]);
 
-            int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
+            this.queries.insertOrder(orderNum, values[1], projectNum, contractNum);
+
+            int num = Integer.parseInt(((JSpinner) this.components[10].component).getValue().toString());
             
             AddOrderItemPage orderItems = (AddOrderItemPage) prepareAndSwitchToPage(App.ADD_ORDER_ITEMS, main);
             orderItems.makeNJTextAreaSets(num, main);
