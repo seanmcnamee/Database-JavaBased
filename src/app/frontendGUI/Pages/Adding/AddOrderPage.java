@@ -34,14 +34,14 @@ public class AddOrderPage extends GUIPage {
             new VariableComponent(new JLabel("Contract Number:"), .2, .6, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .6, 1 / 3.0, 1 / 17.0),
 
-            new VariableComponent(new JLabel("Amount of Items to add to this Order:"), .2, .7, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JLabel("Amount of Items to add to this Order:"), .2, .7, 1 / 3.0, 1 / 6.0),
             new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .7, 1 / 3.0, 1 / 17.0),
 
             new VariableComponent(new JButton("Submit"), .5, .8, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
-        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5, 7);
-        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4, 6, 8);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5, 7, 9);
+        this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4, 6, 8, 10);
         ((JLabel) components[0].component).setFont(new Font("Verdana", Font.PLAIN, 20));
         return components;
     }
