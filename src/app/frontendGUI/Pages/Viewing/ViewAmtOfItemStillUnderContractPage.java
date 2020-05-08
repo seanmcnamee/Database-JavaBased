@@ -30,7 +30,7 @@ public class ViewAmtOfItemStillUnderContractPage extends GUIPage {
                 new VariableComponent(new JLabel("Contract Number:"), .2, .4, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
 
-                new VariableComponent(new JButton("Submit"), .5, .4, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JButton("Submit"), .5, .5, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3);
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4);

@@ -88,13 +88,12 @@ public class Queries {
 				+ supplierNum + ", '" + supplierAddress + "', '" + supplierName + "');");
 	}
 
-	////////////////////////////////// VIEWING
-	////////////////////////////////// ///////////////////////////////////////////
+	//////////////////////////////////  VIEWING  ////////////////////////////////////////////////////////////////////////////
 	public int viewAmtOfItemStillUnderContract(int itemNum, int contractNum) throws SQLException {
 		ResultSet rS = performStatement("SELECT `CONTRACT-AMOUNT` FROM `Contract-Item` WHERE " + "`ITEM-NO` = "
 				+ itemNum + " AND `CONTRACT-NO` = " + contractNum + ";");
 		rS.next();
-		return Integer.parseInt(rS.getString("CONTRACT-AMOUNT"));
+		return Integer.parseInt(rS.getString(1));
 	}
 
 	public int viewAmtOfItemStillUnderContractInOrder(int itemNum, int orderNum) throws SQLException {
@@ -102,15 +101,16 @@ public class Queries {
 				+ itemNum + " AND `CONTRACT-NO` IN " + "(SELECT `CONTRACT-NO` FROM Orders WHERE `ORDER-NO` = "
 				+ orderNum + ");");
 		rS.next();
-		return Integer.parseInt(rS.getString("CONTRACT-AMOUNT"));
+		return Integer.parseInt(rS.getString(1));
 	}
 
 	public ContractSupplier viewContractAndSupplierInfo(int supplierNum, int contractNum)
 			throws SQLException {
 		ResultSet rS =  performStatement(
-				"SELECT * FROM Contract	INNER JOIN Supplier ON " + "Contract.SUPPLIER-NO = " + supplierNum + " AND "
-						+ "Supplier.SUPPLIER-NO = " + supplierNum + " AND `CONTRACT-NO` = " + contractNum + ";");
-		return new ContractSupplier(contractNum, rS.getDate("`DATE-OF-CONTRACT`"), supplierNum, rS.getString("`SUPPLIER-ADDRESS`"), rS.getString("`SUPPLIER-NAME`"));
+				"SELECT * FROM Contracts INNER JOIN Suppliers ON " + "Contracts.`SUPPLIER-NO` = " + supplierNum + " AND "
+						+ "Suppliers.`SUPPLIER-NO` = " + supplierNum + " AND `CONTRACT-NO` = " + contractNum + ";");
+		rS.next();
+		return new ContractSupplier(contractNum, rS.getDate(2), supplierNum, rS.getString(5), rS.getString(6));
 	}
 
 	public Item[] viewItemInOrder(int orderNum) throws SQLException {
@@ -119,7 +119,7 @@ public class Queries {
 		Item[] items = new Item[countRows(rS)];
 		int index = 0;
 		while (rS.next()) {
-			items[index] = new Item(rS.getInt("`ITEM-NO`"), rS.getString("`ITEM-DESCRIPTION`"));
+			items[index] = new Item(rS.getInt(1), rS.getString(2));
 			index++;
 		}
 		return items;
@@ -128,22 +128,24 @@ public class Queries {
 	public double viewItemPriceInContract(int itemNum, int contractNum) throws SQLException {
 		ResultSet rS = performStatement("SELECT `CONTRACT-PRICE` FROM `Contract-Item` WHERE `ITEM-NO` = " + itemNum + 
 										" AND `CONTRACT-NO` = " + contractNum + ";");
-		return rS.getDouble("`CONTRACT-PRICE`");
+		rS.next();
+		return rS.getDouble(1);
 	}
 
 	public double viewItemPriceInOrder(int itemNum, int orderNum) throws SQLException {
 		ResultSet rS = performStatement("SELECT `CONTRACT-PRICE` FROM `Contract-Item` WHERE `ITEM-NO` = " + itemNum + " AND `CONTRACT-NO` IN " +
-									"(SELECT `CONTRACT-NO` FROM Order WHERE `ORDER-NO` = " + orderNum + ");");
-		return rS.getDouble("`CONTRACT-PRICE`");
+									"(SELECT `CONTRACT-NO` FROM Orders WHERE `ORDER-NO` = " + orderNum + ");");
+		rS.next();
+		return rS.getDouble(1);
 	}
 
 	public Order[] viewOrdersForItem(int itemNum) throws SQLException {
 		ResultSet rS = performStatement("SELECT * FROM Orders WHERE `ORDER-NO` IN " +
-									"(SELECT `ORDER-NO` FROM `ORDER-ITEM` WHERE `ITEM-NO` = " + itemNum + ");");
+									"(SELECT `ORDER-NO` FROM `Order-Item` WHERE `ITEM-NO` = " + itemNum + ");");
 		Order[] orders = new Order[countRows(rS)];
 		int index = 0;
 		while(rS.next()) {
-			orders[index] = new Order(rS.getInt("`ORDER-NO`"), rS.getDate("`DATE-REQUIRED`"), rS.getDate("`DATE-COMPLETED`"), rS.getInt("`PROJECT-NO`"), rS.getInt("`CONTRACT-NO`"));
+			orders[index] = new Order(rS.getInt(1), rS.getDate(2), rS.getDate(3), rS.getInt(4), rS.getInt(5));
 			index++;
 		}
 		return orders;

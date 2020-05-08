@@ -50,19 +50,23 @@ public class ViewOrdersForItemPage extends GUIPage{
             String SqlResponseString = "";
             try {
                 Order[] orders = this.queries.viewOrdersForItem(itemNum);
-                SqlResponseString = "Orders for item " + itemNum + ":\n";
+                SqlResponseString = "<html>Orders for item " + itemNum + ":<br />";
                 for (Order o : orders) {
                     SqlResponseString = SqlResponseString + "Order " + o.getOrderNum() + " from " + o.getDateRequired().toString() +
-                                        " in project " + o.getProjectNum() + " and contract " + o.getContractNum() + ". Completion Date: " +
-                                        ((o!=null)? o.getDateCompleted().toString(): "Not yet completed.");
+                                    " in project " + o.getProjectNum() + " and contract " + o.getContractNum() + ". Completion Date: " +
+                                    ((o.getDateCompleted()!=null)? o.getDateCompleted().toString(): "Not yet completed.") + "<br />";
+
+
                 }
+                SqlResponseString = SqlResponseString + "</html>";
             } catch (SQLException e) {
                 e.printStackTrace();
                 SqlResponseString = "Error with SQL obtaining the Orders for that item.";
             }
-            
+
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
             view.setViews("Orders of an item", SqlResponseString);
         }
+
     }
 }

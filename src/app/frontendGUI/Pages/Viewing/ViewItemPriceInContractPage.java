@@ -28,7 +28,7 @@ public class ViewItemPriceInContractPage extends GUIPage {
                 new VariableComponent(new JLabel("Contract Number:"), .2, .4, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
 
-                new VariableComponent(new JButton("Submit"), .5, .4, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JButton("Submit"), .5, .5, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1) };
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3);
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.BLACK, 2, 4);
@@ -43,7 +43,7 @@ public class ViewItemPriceInContractPage extends GUIPage {
             prepareAndSwitchToPage(App.VIEW_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            
+
             String[] values = this.getStringsOfTextAreas(components, 2, 4);
             int itemNum = Integer.parseInt(values[0]);
             int contractNum = Integer.parseInt(values[1]);

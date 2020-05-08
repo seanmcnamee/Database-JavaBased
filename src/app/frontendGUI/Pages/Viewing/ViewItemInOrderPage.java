@@ -51,10 +51,11 @@ public class ViewItemInOrderPage extends GUIPage {
             String SqlResponseString = "";
             try {
                 Item[] items = this.queries.viewItemInOrder(orderNum);
-                SqlResponseString = "Items in order " + orderNum + ":\n";
+                SqlResponseString = "<html>Items in order " + orderNum + ": <br />";
                 for (Item i : items) {
-                    SqlResponseString = SqlResponseString + i.getItemNum() + ": " + i.getItemDescription() + "\n";
+                    SqlResponseString = SqlResponseString + i.getItemNum() + ": " + i.getItemDescription() + "<br />";
                 }
+                SqlResponseString = SqlResponseString + "</html>";
             } catch (SQLException e) {
                 e.printStackTrace();
                 SqlResponseString = "Error with SQL obtaining the Items in that order";

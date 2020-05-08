@@ -25,7 +25,7 @@ public class ViewPage extends GUIPage {
         {
             new VariableComponent(new JLabel("", SwingConstants.CENTER), .5, .1, 1, .2),
 
-            new VariableComponent(new JLabel(""), .15, .4, 1/3.0, 1/4.0),
+            new VariableComponent(new JLabel(""), .5, .4, 3/4.0, 1/2.0),
 
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
