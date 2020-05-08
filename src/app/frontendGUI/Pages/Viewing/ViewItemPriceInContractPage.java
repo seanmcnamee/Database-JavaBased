@@ -2,6 +2,7 @@ package app.frontendGUI.Pages.Viewing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -42,18 +43,25 @@ public class ViewItemPriceInContractPage extends GUIPage {
             prepareAndSwitchToPage(App.VIEW_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
-
+            
             String[] values = this.getStringsOfTextAreas(components, 2, 4);
-            int num = Integer.parseInt(values[0]);
-            int num2 = Integer.parseInt(values[1]);
+            int itemNum = Integer.parseInt(values[0]);
+            int contractNum = Integer.parseInt(values[1]);
             
 
-            this.queries.viewItemPriceInContract(num, num2);
+            
+            String SqlResponseString = "";
+            try {
+                double itemPrice = this.queries.viewItemPriceInContract(itemNum, contractNum);
+                SqlResponseString = "Item " + itemNum + " in contract " + contractNum + " costs $" + itemPrice;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                SqlResponseString = "Error with SQL obtaining the price of the item in this contract.";
+            }
             
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
-            view.setViews("Item's Price in Contract", "STRING_FROM_SQL_RETURN");
+            view.setViews("Item's Price in Contract", SqlResponseString);
         }
     }
 }

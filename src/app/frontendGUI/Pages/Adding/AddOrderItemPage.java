@@ -40,51 +40,34 @@ public class AddOrderItemPage extends DynamicInputGUIPage {
         } else if (obj.equals(this.components[0].component)) {
             System.out.println("Submitted");
 
+            //Loop through each OrderItem
             for (String[] values : getStringsOfTextAreasForEachGroup()) {
                 int itemNum = Integer.parseInt(values[0]);
                 int orderQuantity = Integer.parseInt(values[1]);
 
-                int underContract = 0;
-                ResultSet underContractSet = this.queries.viewAmtOfItemStillUnderContractInOrder(itemNum, orderNum);
-                System.out.println("Evaluating");
-                // TODO figure out what's in this.
+                //Try to grab the add the OrderItem
                 try {
-                    if (underContractSet.next()) {
-                        underContract = Integer.parseInt(underContractSet.getString("CONTRACT-AMOUNT"));
-                        System.out.println("Current contract amount: " + underContract);
-                        if (underContract >= orderQuantity) {
-                            underContract -= orderQuantity;
-                            System.out.println("New contract amount: " + underContract);
-                            System.out.println("setting new contract amount...");
-                            this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
-                            System.out.println("Inserting item...");
-                            this.queries.insertOrderItem(orderNum, itemNum, orderQuantity);
-                            prepareAndSwitchToPage(App.ADD_DATA, main);
-                        }   else {
-                            //TODO notify user that there was a problem with the order.
-                            System.out.println("Not enough orders left");
-                        }
+                    System.out.println("Evaluating");
+                    int underContract = this.queries.viewAmtOfItemStillUnderContractInOrder(itemNum, orderNum);
+                    
+                    System.out.println("Current contract amount: " + underContract);
+                    if (underContract >= orderQuantity) { //If successful, add it and switch back to the ADD_DATA page
+                        underContract -= orderQuantity;
+
+                        System.out.println("Setting New contract amount: " + underContract + "...");
+                        this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
+
+                        System.out.println("Inserting item...");
+                        this.queries.insertOrderItem(orderNum, itemNum, orderQuantity);
+                        prepareAndSwitchToPage(App.ADD_DATA, main);
+                    }   else { //Notify if there's a problem with the order
+                        //TODO notify user that there was a problem with the order.
+                        System.out.println("Not enough orders left");
                     }
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println("Problem with getting the SQL Contract Amount");
                 }
-
-                /**
-			Statement stmt = conn.createStatement();
-			resultSet = stmt.executeQuery("SELECT * FROM `Orders`");
-			
-			while(resultSet.next()) {
-				System.out.println("Query Result: " + resultSet.getString("ORDER-NO"));
-				
-				ResultSetMetaData metaData = resultSet.getMetaData();
-				System.out.println("DB Result: " + metaData.getColumnCount());
-				for(int i = 1; i <= metaData.getColumnCount(); i++){
-					System.out.println("DB Result: " + resultSet.getObject(i));
-				} // end for
-			} // end while loop
-			*/
             }
         }
     }

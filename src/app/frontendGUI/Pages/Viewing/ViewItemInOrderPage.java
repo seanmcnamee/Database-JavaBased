@@ -2,6 +2,7 @@ package app.frontendGUI.Pages.Viewing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import app.App;
+import app.Entities.Item;
 import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
@@ -41,18 +43,26 @@ public class ViewItemInOrderPage extends GUIPage {
             prepareAndSwitchToPage(App.VIEW_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
 
             String[] values = this.getStringsOfTextAreas(components, 2);
-            int num = Integer.parseInt(values[0]);
+            int orderNum = Integer.parseInt(values[0]);
             
             
+            String SqlResponseString = "";
+            try {
+                Item[] items = this.queries.viewItemInOrder(orderNum);
+                SqlResponseString = "Items in order " + orderNum + ":\n";
+                for (Item i : items) {
+                    SqlResponseString = SqlResponseString + i.getItemNum() + ": " + i.getItemDescription() + "\n";
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                SqlResponseString = "Error with SQL obtaining the Items in that order";
+            }
 
-            this.queries.viewItemInOrder(num);
-            
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
-            view.setViews("Items in Order", "STRING_FROM_SQL_RETURN");
+            view.setViews("Items in Order", SqlResponseString);
         }
     }
 }

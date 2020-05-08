@@ -2,6 +2,7 @@ package app.frontendGUI.Pages.Viewing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import app.App;
+import app.Entities.ContractSupplier;
 import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
@@ -42,18 +44,26 @@ public class ViewContractAndSupplierInfoPage extends GUIPage {
             prepareAndSwitchToPage(App.VIEW_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
 
             String[] values = this.getStringsOfTextAreas(components, 2, 4);
             int num = Integer.parseInt(values[0]);
             int num2 = Integer.parseInt(values[1]);
             
 
-            this.queries.viewContractAndSupplierInfo(num, num2);
             
+            String SqlResponseString = "";
+            try {
+                ContractSupplier contractSupplier = this.queries.viewContractAndSupplierInfo(num, num2);
+                SqlResponseString = "Contract " + contractSupplier.getContractNum()+ " from " + contractSupplier.getDateOfContract().toString() + 
+                                    "\nSupplier " + contractSupplier.getSupplierNum() + ": " + contractSupplier.getSupplierName() + " located at " + 
+                                    contractSupplier.getSupplierAddress();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                SqlResponseString = "Error with SQL obtaining the Contract and Supplier info";
+            }
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
-            view.setViews("Contract-Supplier Info", "STRING_FROM_SQL_RETURN");
+            view.setViews("Contract-Supplier Info", SqlResponseString);
         }
     }
 }

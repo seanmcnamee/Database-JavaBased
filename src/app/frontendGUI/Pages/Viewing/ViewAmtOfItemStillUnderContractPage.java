@@ -2,6 +2,7 @@ package app.frontendGUI.Pages.Viewing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,10 +19,12 @@ public class ViewAmtOfItemStillUnderContractPage extends GUIPage {
         super();
         this.panel.setBackground(Color.GRAY);
     }
+
     @Override
     public VariableComponent[] createComponents() {
-         VariableComponent[] components = {
-                new VariableComponent(new JLabel("View amount of an item still under Contract:", SwingConstants.CENTER), .5, .1, 1, .2),
+        VariableComponent[] components = {
+                new VariableComponent(new JLabel("View amount of an item still under Contract:", SwingConstants.CENTER),
+                        .5, .1, 1, .2),
                 new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JLabel("Contract Number:"), .2, .4, 1 / 5.0, 1 / 6.0),
@@ -37,23 +40,27 @@ public class ViewAmtOfItemStillUnderContractPage extends GUIPage {
 
     @Override
     public void actionPerformed(Object obj, GUI main) {
-        if (obj.equals(this.components[this.components.length-1].component)) {
+        if (obj.equals(this.components[this.components.length - 1].component)) {
             System.out.println("Back to view page");
             prepareAndSwitchToPage(App.VIEW_DATA, main);
-        } else if (obj.equals(this.components[this.components.length-2].component)) {
+        } else if (obj.equals(this.components[this.components.length - 2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
 
             String[] values = this.getStringsOfTextAreas(components, 2, 4);
-            int num = Integer.parseInt(values[0]);
-            int num2 = Integer.parseInt(values[1]);
-            
+            int itemNum = Integer.parseInt(values[0]);
+            int contractNum = Integer.parseInt(values[1]);
 
-            this.queries.viewAmtOfItemStillUnderContract(num, num2);
-
+            String SqlResponseString = "";
+            try {
+                int amountUnderContract = this.queries.viewAmtOfItemStillUnderContract(itemNum, contractNum);
+                SqlResponseString = "Item " + itemNum + " in contract " + contractNum + " has " + amountUnderContract + " left.";
+            } catch (SQLException e) {
+                e.printStackTrace();
+                SqlResponseString = "Error with SQL obtaining the Amount still under contract.";
+            }
 
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
-            view.setViews("Items still under contract", "STRING_FROM_SQL_RETURN");
+            view.setViews("Items still under contract", SqlResponseString);
         }
     }
 }

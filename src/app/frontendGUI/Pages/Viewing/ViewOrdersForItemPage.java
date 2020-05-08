@@ -2,6 +2,7 @@ package app.frontendGUI.Pages.Viewing;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import app.App;
+import app.Entities.Order;
 import app.frontendGUI.GUI;
 import app.frontendGUI.GUIPage;
 
@@ -40,17 +42,27 @@ public class ViewOrdersForItemPage extends GUIPage{
             prepareAndSwitchToPage(App.VIEW_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Back to menu page");
-            //TODO Add submit code (connect to SQL)
 
             String[] values = this.getStringsOfTextAreas(components, 2);
-            int num = Integer.parseInt(values[0]);
+            int itemNum = Integer.parseInt(values[0]);
             
 
-            this.queries.viewOrdersForItem(num);
-            
+            String SqlResponseString = "";
+            try {
+                Order[] orders = this.queries.viewOrdersForItem(itemNum);
+                SqlResponseString = "Orders for item " + itemNum + ":\n";
+                for (Order o : orders) {
+                    SqlResponseString = SqlResponseString + "Order " + o.getOrderNum() + " from " + o.getDateRequired().toString() +
+                                        " in project " + o.getProjectNum() + " and contract " + o.getContractNum() + ". Completion Date: " +
+                                        ((o!=null)? o.getDateCompleted().toString(): "Not yet completed.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                SqlResponseString = "Error with SQL obtaining the Orders for that item.";
+            }
             
             ViewPage view = (ViewPage) prepareAndSwitchToPage(App.VIEW_PAGE, main);
-            view.setViews("Orders of an item", "STRING_FROM_SQL_RETURN");
+            view.setViews("Orders of an item", SqlResponseString);
         }
     }
 }
