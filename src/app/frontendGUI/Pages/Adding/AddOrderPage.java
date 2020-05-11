@@ -27,7 +27,7 @@ public class AddOrderPage extends GUIPage {
             new VariableComponent(new JLabel("Add Order", SwingConstants.CENTER), .5, .1, 1, .2),
             new VariableComponent(new JLabel("Order Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JLabel("Date Required:"), .2, .4, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JLabel("Date Requested (yyyy-mm-dd):"), .2, .4, 1 / 3.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JLabel("Project Number:"), .2, .5, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),

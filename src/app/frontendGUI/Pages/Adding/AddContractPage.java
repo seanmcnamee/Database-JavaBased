@@ -30,7 +30,7 @@ public class AddContractPage extends GUIPage {
             new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JLabel("Supplier Number:"), .2, .4, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
-            new VariableComponent(new JLabel("Date of Contract:"), .2, .5, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JLabel("Date of Contract (yyyy-mm-dd):"), .2, .5, 1 / 3.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
             new VariableComponent(new JLabel("Amount of Items to add to this contract:"), .2, .6, 1 / 3.0, 1 / 6.0),
