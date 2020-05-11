@@ -27,6 +27,8 @@ public class AddItemPage extends GUIPage {
             new VariableComponent(new JTextArea(), .6, .3, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JLabel("Item Description:"), .2, .4, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JTextArea(), .6, .4, 1 / 3.0, 1 / 17.0),
+
+            new VariableComponent(new JLabel(""), .5, .5, 1 / 2.0, 1 / 6.0),
             
             new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
@@ -43,13 +45,22 @@ public class AddItemPage extends GUIPage {
             System.out.println("Back to menu page");
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
-            System.out.println("Back to menu page");
+            System.out.println("Submitted");
+            ((JLabel) this.components[5].component).setText(null);
 
-            String[] values = this.getStringsOfTextAreas(components, 2, 4);
-            int num = Integer.parseInt(values[0]);
-
-            this.queries.insertItem(num, values[1]);
-            prepareAndSwitchToPage(App.ADD_DATA, main);
+            try {
+                addItem();
+                prepareAndSwitchToPage(App.ADD_DATA, main);
+            } catch (Exception e) {
+                ((JLabel) this.components[5].component).setText("Problem with the input. Try again");
+            }
         }
+    }
+
+    private void addItem() throws Exception {
+        String[] values = this.getStringsOfTextAreas(components, 2, 4);
+        int num = Integer.parseInt(values[0]);
+
+        this.queries.insertItem(num, values[1]);
     }
 }

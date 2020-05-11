@@ -31,7 +31,8 @@ public class AddContractItemsPage extends DynamicInputGUIPage {
 
             new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
             new VariableComponent(new JLabel("Contract Price:"), .2, .4, 1 / 5.0, 1 / 6.0),
-            new VariableComponent(new JLabel("Contract Amount:"), .2, .5, 1 / 5.0, 1 / 6.0) };
+            new VariableComponent(new JLabel("Contract Amount:"), .2, .5, 1 / 5.0, 1 / 6.0),
+            new VariableComponent(new JLabel(""), .5, .6, 1 / 2.0, 1 / 6.0) };
         return components;
     }
 
@@ -42,16 +43,24 @@ public class AddContractItemsPage extends DynamicInputGUIPage {
             prepareAndSwitchToPage(App.ADD_CONTRACT_PAGE, main);
         } else if (obj.equals(this.components[0].component)) {
             System.out.println("Submitted");
+            ((JLabel) this.components[6].component).setText(null);
 
-            for (String[] values : getStringsOfTextAreasForEachGroup()) {
-                int itemNum = Integer.parseInt(values[0]);
-                double contractPrice = Double.parseDouble(values[1]);
-                int contractAmount = Integer.parseInt(values[2]);
-                System.out.println("CNum, INum, CPrice, CAmt " + this.contractNum + " " + itemNum + " " + contractPrice + " " + contractAmount);
-                this.queries.insertContractItem(this.contractNum, itemNum, contractPrice, contractAmount);
+            try {
+                addContractItem();
+                prepareAndSwitchToPage(App.ADD_DATA, main);
+            } catch (Exception e) {
+                ((JLabel) this.components[6].component).setText("Problem with the input. Try again");
             }
-                
-            prepareAndSwitchToPage(App.ADD_DATA, main);
+        }
+    }
+
+    private void addContractItem() throws Exception {
+        for (String[] values : getStringsOfTextAreasForEachGroup()) {
+            int itemNum = Integer.parseInt(values[0]);
+            double contractPrice = Double.parseDouble(values[1]);
+            int contractAmount = Integer.parseInt(values[2]);
+            System.out.println("CNum, INum, CPrice, CAmt " + this.contractNum + " " + itemNum + " " + contractPrice + " " + contractAmount);
+            this.queries.insertContractItem(this.contractNum, itemNum, contractPrice, contractAmount);
         }
     }
 

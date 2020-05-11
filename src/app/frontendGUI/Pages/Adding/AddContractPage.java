@@ -36,6 +36,8 @@ public class AddContractPage extends GUIPage {
             new VariableComponent(new JLabel("Amount of Items to add to this contract:"), .2, .6, 1 / 3.0, 1 / 6.0),
             new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .6, 1 / 3.0, 1 / 17.0),
 
+            new VariableComponent(new JLabel(""), .5, .7, 1 / 2.0, 1 / 6.0),
+
             new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
@@ -52,19 +54,28 @@ public class AddContractPage extends GUIPage {
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
             System.out.println("Submitted");
-                String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
-                int contractNum = Integer.parseInt(values[0]);
-                int supplierNum = Integer.parseInt(values[1]);
+            ((JLabel) this.components[9].component).setText(null);
 
-                System.out.println("Contract: CNum, Date, SupplierNum, : " + contractNum + " " + values[2] + " " + supplierNum);
-                this.queries.insertContract(contractNum, values[2], supplierNum);
-                
-                int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
-
-                
-                AddContractItemsPage contractItems = (AddContractItemsPage) prepareAndSwitchToPage(App.ADD_CONTRACT_ITEMS, main);
-                contractItems.makeNJTextAreaSets(num, main);
-                contractItems.setContractNum(contractNum);
+            try {
+                addContractAndSwitch(main);
+            } catch (Exception e) {
+                ((JLabel) this.components[9].component).setText("Problem with the input. Try again");
+            }
         }
+    }
+
+    private void addContractAndSwitch(GUI main) throws Exception {
+        String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
+        int contractNum = Integer.parseInt(values[0]);
+        int supplierNum = Integer.parseInt(values[1]);
+
+        System.out.println("Contract: CNum, Date, SupplierNum, : " + contractNum + " " + values[2] + " " + supplierNum);
+        this.queries.insertContract(contractNum, values[2], supplierNum);
+        
+        int num = Integer.parseInt(((JSpinner) this.components[8].component).getValue().toString());
+
+        AddContractItemsPage contractItems = (AddContractItemsPage) prepareAndSwitchToPage(App.ADD_CONTRACT_ITEMS, main);
+        contractItems.makeNJTextAreaSets(num, main);
+        contractItems.setContractNum(contractNum);
     }
 }

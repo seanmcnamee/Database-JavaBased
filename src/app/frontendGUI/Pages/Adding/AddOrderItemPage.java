@@ -22,13 +22,14 @@ public class AddOrderItemPage extends DynamicInputGUIPage {
 
     @Override
     public VariableComponent[] createComponents() {
-        VariableComponent[] components = { new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
+        VariableComponent[] components = { new VariableComponent(new JButton("Submit"), .6, .9, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1),
 
                 new VariableComponent(new JLabel("Add Items To Order", SwingConstants.CENTER), .5, .1, 1, .2),
 
                 new VariableComponent(new JLabel("Item Number:"), .2, .3, 1 / 5.0, 1 / 6.0),
-                new VariableComponent(new JLabel("Order Quantity:"), .2, .4, 1 / 5.0, 1 / 6.0) };
+                new VariableComponent(new JLabel("Order Quantity:"), .2, .4, 1 / 5.0, 1 / 6.0),
+                new VariableComponent(new JLabel(""), .5, .5, 1 / 2.0, 1 / 6.0) };
         return components;
     }
 
@@ -40,34 +41,44 @@ public class AddOrderItemPage extends DynamicInputGUIPage {
         } else if (obj.equals(this.components[0].component)) {
             System.out.println("Submitted");
 
-            //Loop through each OrderItem
-            for (String[] values : getStringsOfTextAreasForEachGroup()) {
-                int itemNum = Integer.parseInt(values[0]);
-                int orderQuantity = Integer.parseInt(values[1]);
+            ((JLabel) this.components[5].component).setText(null);
 
-                //Try to grab the add the OrderItem
-                try {
-                    System.out.println("Evaluating");
-                    int underContract = this.queries.viewAmtOfItemStillUnderContractInOrder(itemNum, orderNum);
-                    
-                    System.out.println("Current contract amount: " + underContract);
-                    if (underContract >= orderQuantity) { //If successful, add it and switch back to the ADD_DATA page
-                        underContract -= orderQuantity;
+            try {
+                AddEachOrderItemAndSwitch(main);
+            } catch (Exception e) {
+                ((JLabel) this.components[5].component).setText("Problem with the input. Try again");
+            }
+        }
+    }
 
-                        System.out.println("Setting New contract amount: " + underContract + "...");
-                        this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
+    private void AddEachOrderItemAndSwitch(GUI main) throws Exception {
+        //Loop through each OrderItem
+        for (String[] values : getStringsOfTextAreasForEachGroup()) {
+            int itemNum = Integer.parseInt(values[0]);
+            int orderQuantity = Integer.parseInt(values[1]);
 
-                        System.out.println("Inserting item...");
-                        this.queries.insertOrderItem(orderNum, itemNum, orderQuantity);
-                        prepareAndSwitchToPage(App.ADD_DATA, main);
-                    }   else { //Notify if there's a problem with the order
-                        //TODO notify user that there was a problem with the order.
-                        System.out.println("Not enough orders left");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    System.out.println("Problem with getting the SQL Contract Amount");
+            //Try to grab the add the OrderItem
+            try {
+                System.out.println("Evaluating");
+                int underContract = this.queries.viewAmtOfItemStillUnderContractInOrder(itemNum, orderNum);
+                
+                System.out.println("Current contract amount: " + underContract);
+                if (underContract >= orderQuantity) { //If successful, add it and switch back to the ADD_DATA page
+                    underContract -= orderQuantity;
+
+                    System.out.println("Setting New contract amount: " + underContract + "...");
+                    this.queries.updateContractAmountForOrderItem(orderNum, itemNum, underContract);
+
+                    System.out.println("Inserting item...");
+                    this.queries.insertOrderItem(orderNum, itemNum, orderQuantity);
+                    prepareAndSwitchToPage(App.ADD_DATA, main);
+                }   else { //Notify if there's a problem with the order
+                    //TODO notify user that there was a problem with the order.
+                    System.out.println("Not enough orders left");
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Problem with getting the SQL Contract Amount");
             }
         }
     }

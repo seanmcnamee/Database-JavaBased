@@ -2,6 +2,7 @@ package app.frontendGUI.Pages.Adding;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,7 +31,9 @@ public class AddSupplierPage extends GUIPage {
                 new VariableComponent(new JLabel("Supplier Name:"), .2, .5, 1 / 5.0, 1 / 6.0),
                 new VariableComponent(new JTextArea(), .6, .5, 1 / 3.0, 1 / 17.0),
 
-                new VariableComponent(new JButton("Submit"), .5, .6, 1 / 3.0, 1 / 17.0),
+                new VariableComponent(new JLabel(""), .5, .6, 1 / 2.0, 1 / 6.0),
+
+                new VariableComponent(new JButton("Submit"), .5, .7, 1 / 3.0, 1 / 17.0),
                 new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
             };
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5);
@@ -45,15 +48,27 @@ public class AddSupplierPage extends GUIPage {
             System.out.println("Back to menu page");
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
-            System.out.println("Back to menu page");
+            System.out.println("Submitted");
 
-            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
-            int num = Integer.parseInt(values[0]);
+            ((JLabel) this.components[7].component).setText(null);
 
-            this.queries.insertSupplier(num, values[1], values[2]);
+            try {
+                addSupplier();
+                prepareAndSwitchToPage(App.ADD_DATA, main);
+            } catch (Exception e) {
+                ((JLabel) this.components[7].component).setText("Problem with the input. Try again");
+            }
+        }
+    }
 
-            //TODO check success?
-            prepareAndSwitchToPage(App.ADD_DATA, main);
+    private void addSupplier() throws Exception {
+        String[] values = this.getStringsOfTextAreas(components, 2, 4, 6);
+        int num = Integer.parseInt(values[0]);
+
+        ResultSet rS = this.queries.insertSupplier(num, values[1], values[2]);
+        if (rS.getWarnings() != null) {
+            System.out.println("PROBLEM!");
+            throw new Exception();
         }
     }
 

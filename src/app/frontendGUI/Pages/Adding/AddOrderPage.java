@@ -37,7 +37,9 @@ public class AddOrderPage extends GUIPage {
             new VariableComponent(new JLabel("Amount of Items to add to this Order:"), .2, .7, 1 / 3.0, 1 / 6.0),
             new VariableComponent(new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1)), .6, .7, 1 / 3.0, 1 / 17.0),
 
-            new VariableComponent(new JButton("Submit"), .5, .8, 1 / 3.0, 1 / 17.0),
+            new VariableComponent(new JLabel(""), .5, .8, 1 / 2.0, 1 / 6.0),
+
+            new VariableComponent(new JButton("Submit"), .5, .9, 1 / 3.0, 1 / 17.0),
             new VariableComponent(new JButton("Back"), .1, .95, .2, .1)
         };
         this.setBackgroundAndTextOfComponentsAtIndices(components, Color.WHITE, Color.WHITE, 0, 1, 3, 5, 7, 9);
@@ -52,21 +54,33 @@ public class AddOrderPage extends GUIPage {
             System.out.println("Back to menu page");
             prepareAndSwitchToPage(App.ADD_DATA, main);
         } else if (obj.equals(this.components[this.components.length-2].component)) {
-            System.out.println("Back to menu page");
+            System.out.println("Submitted");
+
+            ((JLabel) this.components[11].component).setText(null);
+
+            try {
+                addOrderAndSwitch(main);
+            } catch (Exception e) {
+                ((JLabel) this.components[11].component).setText("Problem with the input. Try again");
+            }
             
-            String[] values = this.getStringsOfTextAreas(components, 2, 4, 6, 8);
-            int orderNum = Integer.parseInt(values[0]);
-            int projectNum = Integer.parseInt(values[2]);
-            int contractNum = Integer.parseInt(values[3]);
 
-
-            this.queries.insertOrder(orderNum, values[1], projectNum, contractNum);
-
-            int num = Integer.parseInt(((JSpinner) this.components[10].component).getValue().toString());
-            
-            AddOrderItemPage orderItems = (AddOrderItemPage) prepareAndSwitchToPage(App.ADD_ORDER_ITEMS, main);
-            orderItems.makeNJTextAreaSets(num, main);
-            orderItems.setOrderNum(orderNum);
         }
+    }
+
+    private void addOrderAndSwitch(GUI main) throws Exception {
+        String[] values = this.getStringsOfTextAreas(components, 2, 4, 6, 8);
+        int orderNum = Integer.parseInt(values[0]);
+        int projectNum = Integer.parseInt(values[2]);
+        int contractNum = Integer.parseInt(values[3]);
+
+
+        this.queries.insertOrder(orderNum, values[1], projectNum, contractNum);
+
+        int num = Integer.parseInt(((JSpinner) this.components[10].component).getValue().toString());
+        
+        AddOrderItemPage orderItems = (AddOrderItemPage) prepareAndSwitchToPage(App.ADD_ORDER_ITEMS, main);
+        orderItems.makeNJTextAreaSets(num, main);
+        orderItems.setOrderNum(orderNum);
     }
 }
